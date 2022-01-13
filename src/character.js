@@ -19,46 +19,34 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const extraButtons = (
-  <Stack direction="row" alignItems="bottom"  spacing={1}>
+  <Stack direction="row" alignItems="bottom" spacing={1}>
     <IconButton>
       <MoveIcon />
     </IconButton>
 
-    <IconButton>
+    <IconButton color='warning'>
       <DeleteIcon />
     </IconButton>
   </Stack>
 );
 
 export default function BasicGrid() {
-
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
-
+  const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
 
   return (
     <Box sx={{ ml: 1, mr: 1, mt: 1}}>
-      <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1, mb: -1 }}>
+      <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
         <Grid container spacing={1}>
 
           <Grid item xs={2.75}>
-            <TextField
+            <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Name"
-            fullWidth
-            variant = "standard"
-            autoComplete="off"
             />
           </Grid>
 
           <Grid item xs={1.25}>
-            <TextField
+            <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Init"
-            fullWidth
-            variant = "standard"
-            autoComplete="off"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -70,11 +58,8 @@ export default function BasicGrid() {
           </Grid>
 
           <Grid item xs={1.25}>
-            <TextField
+            <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="AC"
-            fullWidth
-            variant = "standard"
-            autoComplete="off"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -86,11 +71,8 @@ export default function BasicGrid() {
           </Grid>
 
           <Grid item xs={1.75}>
-            <TextField
+            <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="HP"
-            fullWidth
-            variant = "standard"
-            autoComplete="off"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -104,11 +86,8 @@ export default function BasicGrid() {
           <Grid item xs={5}>
             <Stack direction="row" alignItems="bottom" spacing={1}>
 
-              <TextField
+              <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
               placeholder="Status"
-              fullWidth
-              variant = "standard"
-              autoComplete="off"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -118,11 +97,11 @@ export default function BasicGrid() {
               }}
               />
 
-              <IconButton onClick={handleChange}>
+              <IconButton onClick={ () => { setButtonsExpanded((prev) => !prev); }} >
                 <MoreIcon />
               </IconButton>
             
-              <Slide direction="left" in={checked} mountOnEnter unmountOnExit>
+              <Slide direction="left" in={buttonsExpanded} mountOnEnter unmountOnExit>
                 {extraButtons}
               </Slide>
 
@@ -132,7 +111,7 @@ export default function BasicGrid() {
         </Grid>
       </Stack>
 
-      <Divider sx={{ mt: 1, mb: 1 }}/>
+      <Divider sx={{ mt: 0.5 }}/>
     </Box>
   );
 }
