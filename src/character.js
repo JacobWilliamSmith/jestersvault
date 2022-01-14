@@ -18,35 +18,26 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const extraButtons = (
-  <Stack direction="row" alignItems="bottom" spacing={1}>
-    <IconButton>
-      <MoveIcon />
-    </IconButton>
 
-    <IconButton color='warning'>
-      <DeleteIcon />
-    </IconButton>
-  </Stack>
-);
-
-export default function BasicGrid() {
+export default function Character(props) {
   const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
 
   return (
-    <Box sx={{ ml: 1, mr: 1, mt: 1}}>
+    <Box sx={{ ml: 1, mr: 1}}>
       <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
         <Grid container spacing={1}>
 
           <Grid item xs={2.75}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Name"
+            value={props.name}
             />
           </Grid>
 
           <Grid item xs={1.25}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Init"
+            value={props.init}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -60,6 +51,7 @@ export default function BasicGrid() {
           <Grid item xs={1.25}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="AC"
+            value={props.ac}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -73,6 +65,7 @@ export default function BasicGrid() {
           <Grid item xs={1.75}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="HP"
+            value={props.hp}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -88,6 +81,7 @@ export default function BasicGrid() {
 
               <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
               placeholder="Status"
+              value={props.status}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -102,7 +96,17 @@ export default function BasicGrid() {
               </IconButton>
             
               <Slide direction="left" in={buttonsExpanded} mountOnEnter unmountOnExit>
-                {extraButtons}
+                <Stack direction="row" alignItems="bottom" spacing={1}>
+
+                  <IconButton>
+                    <MoveIcon />
+                  </IconButton>
+
+                  <IconButton color='warning'>
+                    <DeleteIcon />
+                  </IconButton>
+
+                </Stack>
               </Slide>
 
             </Stack>
@@ -111,7 +115,7 @@ export default function BasicGrid() {
         </Grid>
       </Stack>
 
-      <Divider sx={{ mt: 0.5 }}/>
+      <Divider sx={{ mt: 0.5, mb: 0.5 }}/>
     </Box>
   );
 }
