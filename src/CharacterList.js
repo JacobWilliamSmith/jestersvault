@@ -1,15 +1,32 @@
 import * as React from 'react';
 
 import Character from './Character';
+import AddCharacter from './AddCharacter';
 
 export default function CharacterList() {
   const [characters, setCharacters] = React.useState([
-    { id: 1, name: 'Jonny Hexblade', init: '', ac: '99', hp: '999 / 999', status: 'Literally a demigod'},
-    { id: 2, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
+    { id: -2, name: 'Jonny Hexblade', init: '', ac: '99', hp: '999 / 999', status: 'Literally a demigod'},
+    { id: -1, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
   ]);
+  
+  const [nextKey, setNextKey] = React.useState(0);
+
+  const emptyCharacter = {
+    id: nextKey,
+    name: '',
+    init: '',
+    ac: '',
+    hp: '',
+    status: ''
+  };
 
   function handleRemove(id) {
     setCharacters(characters.filter((c) => c.id !== id));
+  }
+
+  function handleAdd() {
+    setCharacters(characters => ( [...characters, emptyCharacter] ))
+    setNextKey(nextKey => (nextKey + 1))
   }
 
   return (
@@ -25,6 +42,7 @@ export default function CharacterList() {
           status={c.status}
           onRemove={handleRemove} />
       ))}
+      <AddCharacter onAdd={handleAdd}/>
     </div>
   )
 }
