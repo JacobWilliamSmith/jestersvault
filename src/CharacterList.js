@@ -8,22 +8,15 @@ export default function CharacterList() {
     { id: 2, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
   ]);
 
-  function removeCharacter(id) {
-    this.setState({characters: this.state.characters.filter(function(c) { 
-        return c.id !== id
-    })});
-  } 
-
-
+  function handleRemove(id) {
+    setCharacters(characters.filter((c) => c.id !== id));
+  }
 
   return (
     <div>
       { characters.map((c) => (
-        <Character id={c.id} name={c.name} init={c.init} ac={c.ac} hp={c.hp} status={c.status} />
-      ))
-
-      }
+        <Character id={c.id} name={c.name} init={c.init} ac={c.ac} hp={c.hp} status={c.status} onRemove={handleRemove} />
+      ))}
     </div>
   )
 }
-

@@ -17,9 +17,6 @@ import MoveIcon from '@mui/icons-material/UnfoldMore';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
-
-
 export default function Character(props) {
   const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
 
@@ -103,7 +100,7 @@ export default function Character(props) {
                     <MoveIcon />
                   </IconButton>
 
-                  <IconButton color='warning' onClick={ () => console.log("REMOVE " + props.id) }>
+                  <IconButton color='warning' onClick={ () => { props.onRemove(props.id); } }>
                     <DeleteIcon />
                   </IconButton>
 
