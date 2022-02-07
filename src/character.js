@@ -19,6 +19,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
+
 export default function Character(props) {
   const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
 
@@ -102,7 +103,7 @@ export default function Character(props) {
                     <MoveIcon />
                   </IconButton>
 
-                  <IconButton color='warning'>
+                  <IconButton color='warning' onClick={ () => console.log("REMOVE " + props.id) }>
                     <DeleteIcon />
                   </IconButton>
 
