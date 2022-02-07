@@ -15,7 +15,15 @@ export default function CharacterList() {
   return (
     <div>
       { characters.map((c) => (
-        <Character id={c.id} name={c.name} init={c.init} ac={c.ac} hp={c.hp} status={c.status} onRemove={handleRemove} />
+        <Character 
+          key={c.id}
+          id={c.id}
+          name={c.name}
+          init={c.init}
+          ac={c.ac}
+          hp={c.hp}
+          status={c.status}
+          onRemove={handleRemove} />
       ))}
     </div>
   )
