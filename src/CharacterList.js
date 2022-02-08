@@ -16,6 +16,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import Character from './Character';
 import AddCharacter from './AddCharacter';
+import { StayPrimaryLandscape } from '@mui/icons-material';
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -56,7 +57,6 @@ const CustomAppBar = styled(AppBar, {
 const CustomDrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "flex-end"
 }));
@@ -125,6 +125,11 @@ export default function CharacterList() {
         </Toolbar>
       </CustomAppBar>
       <Drawer
+        PaperProps={{
+          sx: {
+            backgroundColor: "SlateGray"
+          }
+        }}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
