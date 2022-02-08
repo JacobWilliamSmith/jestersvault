@@ -21,7 +21,7 @@ export default function Character(props) {
   const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
 
   return (
-    <Box sx={{ ml: 1, mr: 1}}>
+    <Box>
       <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
         <Grid container spacing={1}>
 
