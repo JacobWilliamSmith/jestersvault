@@ -29,6 +29,7 @@ export default function Character(props) {
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Name"
             defaultValue={props.name}
+            onChange={event => { props.onUpdate(props.id, {name: event.target.value})}}
             />
           </Grid>
 
@@ -36,6 +37,7 @@ export default function Character(props) {
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Init"
             defaultValue={props.init}
+            onChange={event => { props.onUpdate(props.id, {init: event.target.value})}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -50,6 +52,7 @@ export default function Character(props) {
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="AC"
             defaultValue={props.ac}
+            onChange={event => { props.onUpdate(props.id, {ac: event.target.value})}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -64,6 +67,7 @@ export default function Character(props) {
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="HP"
             defaultValue={props.hp}
+            onChange={event => { props.onUpdate(props.id, {hp: event.target.value})}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -80,6 +84,7 @@ export default function Character(props) {
               <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
               placeholder="Status"
               defaultValue={props.status}
+              onChange={event => { props.onUpdate(props.id, {status: event.target.value})}}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
