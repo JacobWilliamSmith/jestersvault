@@ -28,14 +28,14 @@ export default function Character(props) {
           <Grid item xs={2.75}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Name"
-            value={props.name}
+            defaultValue={props.name}
             />
           </Grid>
 
           <Grid item xs={1.25}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Init"
-            value={props.init}
+            defaultValue={props.init}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -49,7 +49,7 @@ export default function Character(props) {
           <Grid item xs={1.25}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="AC"
-            value={props.ac}
+            defaultValue={props.ac}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -63,7 +63,7 @@ export default function Character(props) {
           <Grid item xs={1.75}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="HP"
-            value={props.hp}
+            defaultValue={props.hp}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -79,7 +79,7 @@ export default function Character(props) {
 
               <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
               placeholder="Status"
-              value={props.status}
+              defaultValue={props.status}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

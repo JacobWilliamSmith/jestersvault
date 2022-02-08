@@ -7,18 +7,12 @@ import Toolbar from '@mui/material/Toolbar'
 function App() {
   return (
     <div className="App">
-      <AppBar position="sticky" color="primary" sx={{ top: 0, bottom: 'auto' }}>
-        <Toolbar>
+      <AppBar position="sticky" color="primary">
+        <Toolbar variant="dense">
         </Toolbar>
       </AppBar>
       
       <CharacterList />
-
-      <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
-        <Toolbar>
-        </Toolbar>
-      </AppBar>
-
     </div>
   );
 }
