@@ -61,8 +61,6 @@ const CustomDrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end"
 }));
 
-
-
 const drawerWidth = 240;
 
 export default function CharacterList() {
@@ -163,8 +161,6 @@ export default function CharacterList() {
         ))}
         <AddCharacter onAdd={handleAdd} />
       </Main>
-
-      
     </Box>
   )
 }

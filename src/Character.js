@@ -105,7 +105,7 @@ export default function Character(props) {
                     <MoveIcon />
                   </IconButton>
 
-                  <IconButton color='warning' onClick={ () => { props.onRemove(props.id); } }>
+                  <IconButton color='primary' onClick={ () => { props.onRemove(props.id); } }>
                     <DeleteIcon />
                   </IconButton>
 
