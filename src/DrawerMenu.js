@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import GlobalState from './contexts/GlobalState';
 
 import { styled } from "@mui/material/styles";
@@ -8,8 +8,6 @@ import Drawer from '@mui/material/Drawer';
 import Divider from "@mui/material/Divider";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-
-export const drawerWidth = 240;
 
 export const CustomDrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -33,10 +31,10 @@ export default function DrawerMenu(props) {
           }
         }}
         sx={{
-          width: drawerWidth,
+          width: state.drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: drawerWidth,
+            width: state.drawerWidth,
             boxSizing: "border-box"
           }
         }}

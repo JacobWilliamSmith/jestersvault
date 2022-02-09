@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import GlobalState from './contexts/GlobalState'; 
 
 import AppBar from '@mui/material/AppBar'
@@ -11,25 +11,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { drawerWidth } from './DrawerMenu';
 import DrawerMenu from './DrawerMenu';
-
-const CustomAppBar = styled(AppBar, {
-  shouldForwardProp: (prop) => prop !== "open"
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  })
-}));
 
 export default function AppBarMenu(props) {
   const [state, setState] = useContext(GlobalState);
@@ -37,6 +19,23 @@ export default function AppBarMenu(props) {
   const openDrawer = (() => {
       setState(state => ({...state, isDrawerOpen: true}))
     });
+
+  const CustomAppBar = styled(AppBar, {
+    shouldForwardProp: (prop) => prop !== "open"
+  })(({ theme, open }) => ({
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    ...(open && {
+      width: `calc(100% - ${state.drawerWidth}px)`,
+      marginLeft: `${state.drawerWidth}px`,
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen
+      })
+    })
+  }));
 
   return (
     <Box sx={{ display: "flex" }}>

@@ -1,32 +1,22 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import Character from './Character';
 import AddCharacter from './AddCharacter';
 
+import GlobalState from './contexts/GlobalState';
+
 export default function CharacterList() {
-
-  const [characters, setCharacters] = React.useState([
-    { id: -2, name: 'Jonny Hexblade', init: '', ac: '99', hp: '999 / 999', status: 'Literally a demigod'},
-    { id: -1, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
-  ]);
+  const [state, setState] = useContext(GlobalState);
   
-  const [nextKey, setNextKey] = React.useState(0);
-
   function handleAdd() {
-    const emptyCharacter = {
-      id: nextKey,
-      name: '',
-      init: '',
-      ac: '',
-      hp: '',
-      status: ''
-    };
-    setCharacters(characters => ( [...characters, emptyCharacter] ))
-    setNextKey(nextKey => (nextKey + 1))
+    const emptyCharacter = { id: state.nextCharacterKey, name: '', init: '', ac: '', hp: '', status: '' };
+    setState(state => ({...state, characters: [...state.characters, emptyCharacter]}))
+    setState(state => ({...state, nextCharacterKey: state.nextCharacterKey + 1}))
   }
 
   function handleUpdate(id, args) {
-    const chars = [...characters]
+    console.log("UPDATING")
+    const chars = [...state.characters]
     const index = chars.findIndex(c => c.id === id)
     
     if(args.name   !== undefined) { chars[index].name   = args.name   }
@@ -37,23 +27,28 @@ export default function CharacterList() {
   }
   
   function handleRemove(id) {
-    setCharacters(characters.filter((c) => c.id !== id));
+    setState({...state, characters: state.characters.filter((c) => c.id !== id)})
   }
+
+  const charactersUndefined = state.characters === undefined;
 
   return (
     <div>
-      { characters.map((c) => (
-        <Character 
-          key={c.id}
-          id={c.id}
-          name={c.name}
-          init={c.init}
-          ac={c.ac}
-          hp={c.hp}
-          status={c.status}
-          onUpdate={handleUpdate}
-          onRemove={handleRemove} />
-      ))}
+      { charactersUndefined
+        ? <div></div> // The state of Characer must be updated in App.js before state.characters.map will run
+        : state.characters.map((c) => (
+          <Character 
+            key={c.id}
+            id={c.id}
+            name={c.name}
+            init={c.init}
+            ac={c.ac}
+            hp={c.hp}
+            status={c.status}
+            onUpdate={handleUpdate}
+            onRemove={handleRemove} />
+        )) }
+      
       <AddCharacter onAdd={handleAdd} />
     </div>
   )
