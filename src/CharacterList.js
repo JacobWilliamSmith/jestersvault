@@ -15,7 +15,6 @@ export default function CharacterList() {
   }
 
   function handleUpdate(id, args) {
-    console.log("UPDATING")
     const chars = [...state.characters]
     const index = chars.findIndex(c => c.id === id)
     
@@ -30,11 +29,9 @@ export default function CharacterList() {
     setState({...state, characters: state.characters.filter((c) => c.id !== id)})
   }
 
-  const charactersUndefined = state.characters === undefined;
-
   return (
     <div>
-      { charactersUndefined
+      { state.characters === undefined
         ? <div></div> // The state of Characer must be updated in App.js before state.characters.map will run
         : state.characters.map((c) => (
           <Character 
