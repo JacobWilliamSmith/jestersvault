@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 
+import Button from '@mui/material/Button';
+
 import Character from './Character';
-import AddCharacter from './AddCharacter';
 
 import GlobalState from './contexts/GlobalState';
 
@@ -46,7 +47,9 @@ export default function CharacterList() {
             onRemove={handleRemove} />
         )) }
       
-      <AddCharacter onAdd={handleAdd} />
+      <Button fullWidth sx={{m:0, p:0}} onClick={ () => { handleAdd(); }}>
+        <h3>ADD CHARACTER</h3>
+      </Button>
     </div>
   )
 }
