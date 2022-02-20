@@ -1,9 +1,9 @@
-let idIncrementer = 2;
-
 const defaultState = [
   { id: 0, name: 'Jonny Hexblade', init: '', ac: '99', hp: '999 / 999', status: 'Literally a demigod'},
   { id: 1, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
 ];
+
+let idIncrementer = defaultState.length;
 
 const characterReducer = (state = defaultState, action) => {
   switch(action.type) {
