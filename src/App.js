@@ -22,11 +22,7 @@ function App() {
   });
 
   useEffect(() => {
-    setState(state => ({...state, isDrawerOpen: false, drawerWidth: 240, nextCharacterKey: 0}))
-    setState(state => ({...state, characters: [
-      { id: -2, name: 'Jonny Hexblade', init: '', ac: '99', hp: '999 / 999', status: 'Literally a demigod'},
-      { id: -1, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
-    ]}))
+    setState(state => ({...state, isDrawerOpen: false, drawerWidth: 240}))
   }, []);
 
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(

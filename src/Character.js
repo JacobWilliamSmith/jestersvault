@@ -17,7 +17,15 @@ import MoveIcon from '@mui/icons-material/UnfoldMore';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import { deleteCharacter, updateCharacter } from './actions';
+import { useSelector, useDispatch } from 'react-redux';
+
 export default function Character(props) {
+  const dispatch = useDispatch();
+  const character = useSelector(state => state.characters[
+      state.characters.findIndex(c => c.id === props.id)
+    ]);
+
   const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
 
   return (
@@ -28,16 +36,16 @@ export default function Character(props) {
           <Grid item xs={2.75}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Name"
-            defaultValue={props.name}
-            onChange={event => { props.onUpdate(props.id, {name: event.target.value})}}
+            defaultValue={character.name}
+            onChange={event => { dispatch(updateCharacter(character.id, {name: event.target.value}))}}
             />
           </Grid>
 
           <Grid item xs={1.25}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="Init"
-            defaultValue={props.init}
-            onChange={event => { props.onUpdate(props.id, {init: event.target.value})}}
+            defaultValue={character.init}
+            onChange={event => { dispatch(updateCharacter(character.id, {init: event.target.value}))}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -51,8 +59,8 @@ export default function Character(props) {
           <Grid item xs={1.25}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="AC"
-            defaultValue={props.ac}
-            onChange={event => { props.onUpdate(props.id, {ac: event.target.value})}}
+            defaultValue={character.ac}
+            onChange={event => { dispatch(updateCharacter(character.id, {ac: event.target.value}))}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -66,8 +74,8 @@ export default function Character(props) {
           <Grid item xs={1.75}>
             <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
             placeholder="HP"
-            defaultValue={props.hp}
-            onChange={event => { props.onUpdate(props.id, {hp: event.target.value})}}
+            defaultValue={character.hp}
+            onChange={event => { dispatch(updateCharacter(character.id, {hp: event.target.value}))}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -83,8 +91,8 @@ export default function Character(props) {
 
               <TextField variant = "standard" margin="dense" autoComplete="off" fullWidth
               placeholder="Status"
-              defaultValue={props.status}
-              onChange={event => { props.onUpdate(props.id, {status: event.target.value})}}
+              defaultValue={character.status}
+              onChange={event => { dispatch(updateCharacter(character.id, {status: event.target.value}))}}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -105,7 +113,7 @@ export default function Character(props) {
                     <MoveIcon />
                   </IconButton>
 
-                  <IconButton color='primary' onClick={ () => { props.onRemove(props.id); } }>
+                  <IconButton color='primary' onClick={ () => { dispatch(deleteCharacter(props.id)); } }>
                     <DeleteIcon />
                   </IconButton>
 
