@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
 import CharacterList from './CharacterList';
 import AppBarMenu from './AppBarMenu';
 import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CustomDrawerHeader } from './DrawerMenu';
-import GlobalState from './contexts/GlobalState'; 
-
+import { useSelector } from 'react-redux';
 import { styled } from "@mui/material/styles";
-
 import Box from "@mui/material/Box";
 
 function App() {
-  const [state, setState] = useState({});
+  const isDrawerOpen = useSelector(state => state.isDrawerOpen)
+  const drawerWidth = useSelector(state => state.drawerWidth)
 
   const theme = createTheme({
     palette: {
@@ -21,20 +19,17 @@ function App() {
     }
   });
 
-  useEffect(() => {
-    setState(state => ({...state, isDrawerOpen: false, drawerWidth: 240}))
-  }, []);
 
-  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-    ({ theme, open }) => ({
+  const Main = styled("main")(
+    ({ theme }) => ({
       flexGrow: 1,
       padding: theme.spacing(1),
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen
       }),
-      marginLeft: `-${state.drawerWidth}px`,
-      ...(open && {
+      marginLeft: `-${drawerWidth}px`,
+      ...(isDrawerOpen && {
         transition: theme.transitions.create("margin", {
           easing: theme.transitions.easing.easeOut,
           duration: theme.transitions.duration.enteringScreen
@@ -45,17 +40,15 @@ function App() {
   );
 
   return (
-    <GlobalState.Provider value={[state, setState]}>
-      <ThemeProvider theme={theme}>
-        <Box sx={{ display: "flex" }}>
-          <AppBarMenu />
-          <Main open={state.isDrawerOpen}>
-            < CustomDrawerHeader />
-            < CharacterList />
-          </Main>
-        </Box>
-      </ThemeProvider>
-    </GlobalState.Provider>
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: "flex" }}>
+        <AppBarMenu />
+        <Main>
+          < CustomDrawerHeader />
+          < CharacterList />
+        </Main>
+      </Box>
+    </ThemeProvider>
   );
 }
 

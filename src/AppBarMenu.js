@@ -1,6 +1,4 @@
 import { styled } from "@mui/material/styles";
-import React, { useContext } from 'react';
-import GlobalState from './contexts/GlobalState'; 
 
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -13,12 +11,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import DrawerMenu from './DrawerMenu';
 
-export default function AppBarMenu(props) {
-  const [state, setState] = useContext(GlobalState);
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleDrawer } from './actions';
 
-  const openDrawer = (() => {
-      setState(state => ({...state, isDrawerOpen: true}))
-    });
+export default function AppBarMenu(props) {
+  const dispatch = useDispatch();
+  const isDrawerOpen = useSelector(state => state.isDrawerOpen)
+  const drawerWidth = useSelector(state => state.drawerWidth)
 
   const CustomAppBar = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== "open"
@@ -28,8 +27,8 @@ export default function AppBarMenu(props) {
       duration: theme.transitions.duration.leavingScreen
     }),
     ...(open && {
-      width: `calc(100% - ${state.drawerWidth}px)`,
-      marginLeft: `${state.drawerWidth}px`,
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: `${drawerWidth}px`,
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen
@@ -40,15 +39,14 @@ export default function AppBarMenu(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-
-      <CustomAppBar position="fixed" open={state.isDrawerOpen}>
+      <CustomAppBar position="fixed" open={isDrawerOpen}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={openDrawer}
+            onClick={()=>{dispatch(toggleDrawer())}}
             edge="start"
-            sx={{ mr: 2, ...(state.isDrawerOpen && { display: "none" }) }}
+            sx={{ mr: 2, ...(isDrawerOpen && { display: "none" }) }}
           >
             <MenuIcon />
           </IconButton>
@@ -57,7 +55,6 @@ export default function AppBarMenu(props) {
           </Typography>
         </Toolbar>
       </CustomAppBar>
-
       <DrawerMenu />
     </Box>
   )

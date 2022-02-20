@@ -17,3 +17,9 @@ export const deleteCharacter = (id) => {
     payload: {id}
   }
 }
+
+export const toggleDrawer = () => {
+  return {
+    type: 'TOGGLE_DRAWER'
+  }
+}

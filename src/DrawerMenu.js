@@ -1,6 +1,3 @@
-import React, { useContext } from 'react';
-import GlobalState from './contexts/GlobalState';
-
 import { styled } from "@mui/material/styles";
 
 import IconButton from '@mui/material/IconButton';
@@ -8,6 +5,9 @@ import Drawer from '@mui/material/Drawer';
 import Divider from "@mui/material/Divider";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleDrawer } from './actions';
 
 export const CustomDrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -17,11 +17,9 @@ export const CustomDrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function DrawerMenu(props) {
-  const [state, setState] = useContext(GlobalState);
-
-  const closeDrawer = (() => {
-      setState(state => ({...state, isDrawerOpen: false}))
-    });
+  const dispatch = useDispatch();
+  const isDrawerOpen = useSelector(state => state.isDrawerOpen)
+  const drawerWidth = useSelector(state => state.drawerWidth)
 
   return (
     <Drawer
@@ -31,20 +29,20 @@ export default function DrawerMenu(props) {
           }
         }}
         sx={{
-          width: state.drawerWidth,
+          width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: state.drawerWidth,
+            width: drawerWidth,
             boxSizing: "border-box"
           }
         }}
         variant="persistent"
         anchor="left"
-        open={state.isDrawerOpen}
+        open={isDrawerOpen}
       >
         <CustomDrawerHeader>
-          <IconButton onClick={closeDrawer}>
-              <ChevronLeftIcon />
+          <IconButton onClick={()=>{dispatch(toggleDrawer())}}>
+            <ChevronLeftIcon />
           </IconButton>
         </CustomDrawerHeader>
         <Divider />
