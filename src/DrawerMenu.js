@@ -41,7 +41,7 @@ export default function DrawerMenu(props) {
         open={isDrawerOpen}
       >
         <CustomDrawerHeader>
-          <IconButton onClick={()=>{dispatch(toggleDrawer())}}>
+          <IconButton sx={{mr:1}} onClick={()=>{dispatch(toggleDrawer())}}>
             <ChevronLeftIcon />
           </IconButton>
         </CustomDrawerHeader>
