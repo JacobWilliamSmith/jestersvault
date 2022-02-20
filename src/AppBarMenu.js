@@ -14,7 +14,7 @@ import DrawerMenu from './DrawerMenu';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawer } from './actions';
 
-export default function AppBarMenu(props) {
+export default function AppBarMenu() {
   const dispatch = useDispatch();
   const isDrawerOpen = useSelector(state => state.isDrawerOpen)
   const drawerWidth = useSelector(state => state.drawerWidth)

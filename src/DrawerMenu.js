@@ -16,7 +16,7 @@ export const CustomDrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end"
 }));
 
-export default function DrawerMenu(props) {
+export default function DrawerMenu() {
   const dispatch = useDispatch();
   const isDrawerOpen = useSelector(state => state.isDrawerOpen)
   const drawerWidth = useSelector(state => state.drawerWidth)
