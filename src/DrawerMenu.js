@@ -3,6 +3,8 @@ import { styled } from "@mui/material/styles";
 import IconButton from '@mui/material/IconButton';
 import Drawer from '@mui/material/Drawer';
 import Divider from "@mui/material/Divider";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
@@ -46,6 +48,10 @@ export default function DrawerMenu() {
           </IconButton>
         </CustomDrawerHeader>
         <Divider />
+        <Stack spacing={1} sx={{ml: 2, mr: 2}} direction="column">
+          <Button variant="contained">Begin Combat</Button>
+          <Button variant="contained">Next Turn</Button>
+        </Stack>
       </Drawer>
   )
 }
