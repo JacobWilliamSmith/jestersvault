@@ -1,6 +1,5 @@
 import CharacterList from './CharacterList';
 import AppBarMenu from './AppBarMenu';
-import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CustomDrawerHeader } from './DrawerMenu';
 import { useSelector } from 'react-redux';
