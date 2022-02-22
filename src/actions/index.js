@@ -18,6 +18,23 @@ export const deleteCharacter = (id) => {
   }
 }
 
+export const sortCharacters = (orderBy, isAscending) => {
+  const erroneousAction = { type: 'ERROR' }
+
+  if(isAscending !== true && isAscending !== false) {
+    return erroneousAction
+  }
+  
+  if(orderBy !== 'name' || orderBy !== 'init' || orderBy !== 'ac' || orderBy !== 'status') {
+    return erroneousAction
+  }
+  
+  return {
+    type: 'SORT_CHARACTERS',
+    payload: {orderBy, isAscending}
+  }
+}
+
 export const toggleDrawer = () => {
   return {
     type: 'TOGGLE_DRAWER'

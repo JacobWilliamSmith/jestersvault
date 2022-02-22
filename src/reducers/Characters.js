@@ -26,6 +26,9 @@ const characterReducer = (state = defaultState, action) => {
     case 'DELETE_CHARACTER':
       return state.filter((c) => c.id !== action.payload.id)
 
+    case 'SORT_CHARACTERS':
+      return state.sort((c1, c2) => c1.init - c2.init)
+
     default:
       return state
   }
