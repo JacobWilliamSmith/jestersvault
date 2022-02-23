@@ -18,7 +18,6 @@ function App() {
     }
   });
 
-
   const Main = styled("main")(
     ({ theme }) => ({
       flexGrow: 1,
