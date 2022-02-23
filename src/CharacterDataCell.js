@@ -22,10 +22,15 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function CharacterDataCell(props) {
   const dispatch = useDispatch();
   const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
+  
   const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
 
+  const tableLayout = useSelector(state => state.tableLayout)
+  const columnLayout = tableLayout[props.columnIndex];
+  const isRightmost = props.columnIndex === tableLayout.length - 1;
+
   return (
-    <Grid item xs={props.width}>
+    <Grid item xs={columnLayout.width}>
       <Stack direction="row" alignItems="bottom" spacing={1}>
 
         <TextField
@@ -33,26 +38,26 @@ export default function CharacterDataCell(props) {
           margin="dense"
           autoComplete="off"
           fullWidth
-          placeholder={props.name}
-          defaultValue={character[props.stat]}
+          placeholder={columnLayout.name}
+          defaultValue={character[columnLayout.stat]}
 
           onChange = {
             event => {
               dispatch (
                 updateCharacter (
                   character.id,
-                  props.stat === 'name'   ? { name:   event.target.value } :
-                  props.stat === 'init'   ? { init:   event.target.value } :
-                  props.stat === 'ac'     ? { ac:     event.target.value } :
-                  props.stat === 'hp'     ? { hp:     event.target.value } :
-                  props.stat === 'status' ? { status: event.target.value } :
+                  columnLayout.stat === 'name'   ? { name:   event.target.value } :
+                  columnLayout.stat === 'init'   ? { init:   event.target.value } :
+                  columnLayout.stat === 'ac'     ? { ac:     event.target.value } :
+                  columnLayout.stat === 'hp'     ? { hp:     event.target.value } :
+                  columnLayout.stat === 'status' ? { status: event.target.value } :
                                             {                            }
                 )
               )
             }
           }
 
-          InputProps={ !props.hasStartAdornment ? {} : {
+          InputProps={ !columnLayout.hasStartAdornment ? {} : {
             startAdornment: (
               <InputAdornment position="start">
                 {
@@ -61,7 +66,7 @@ export default function CharacterDataCell(props) {
                     'ac':     <ACIcon />,
                     'hp':     <HPIcon />,
                     'status': <StatusIcon />
-                  }[props.stat]
+                  }[columnLayout.stat]
                 }
               </InputAdornment>
             ),
@@ -69,13 +74,13 @@ export default function CharacterDataCell(props) {
           
         />
         
-        { props.isRightmostColumn &&
+        { isRightmost &&
           <IconButton onClick={ () => { setButtonsExpanded((prev) => !prev); }} >
             <MoreIcon />
           </IconButton>
         }
 
-        { props.isRightmostColumn &&
+        { isRightmost &&
           <Slide direction="left" in={buttonsExpanded} mountOnEnter unmountOnExit>
             <Stack direction="row" alignItems="bottom" spacing={1}>
 

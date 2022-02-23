@@ -1,3 +1,6 @@
+import * as React from 'react';
+import './CharacterListHeader.css';
+
 import Button from '@mui/material/Button';
 
 import Character from './Character';
@@ -8,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function CharacterList() {
   const dispatch = useDispatch();
-  const characters = useSelector(state => state.characters)
+  const characters = useSelector(state => state.characters);
 
   return (
     <div>
