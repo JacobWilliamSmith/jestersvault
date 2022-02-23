@@ -25,7 +25,7 @@ export const sortCharacters = (orderBy, isAscending) => {
     return erroneousAction
   }
   
-  if(orderBy !== 'name' || orderBy !== 'init' || orderBy !== 'ac' || orderBy !== 'status') {
+  if(orderBy !== 'name' && orderBy !== 'init' && orderBy !== 'ac' && orderBy !== 'hp' && orderBy !== 'status') {
     return erroneousAction
   }
   

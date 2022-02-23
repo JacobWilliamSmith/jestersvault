@@ -8,7 +8,7 @@ let idIncrementer = defaultState.length;
 const characterReducer = (state = defaultState, action) => {
   switch(action.type) {
     case 'CREATE_CHARACTER':
-      const emptyCharacter = { id: idIncrementer++, name: '', init: '', ac: '', hp: '', status: '' };
+      const emptyCharacter = { id: idIncrementer++, name: '', init: '', ac: '', hp: '', status: ''};
       return [...state, emptyCharacter]
 
     case 'UPDATE_CHARACTER':
@@ -27,11 +27,60 @@ const characterReducer = (state = defaultState, action) => {
       return state.filter((c) => c.id !== action.payload.id)
 
     case 'SORT_CHARACTERS':
-      return state.sort((c1, c2) => c1.init - c2.init)
+      let sortedCharacters = [...state]
+
+      switch(action.payload.orderBy) {
+        case 'name':
+          sortedCharacters.sort((a,b) => compare(a.name, b.name, action.payload.isAscending));
+          break;
+        case 'init':
+          sortedCharacters.sort((a,b) => compare(a.init, b.init, action.payload.isAscending));
+          break;
+        case 'ac':
+          sortedCharacters.sort((a,b) => compare(a.ac, b.ac, action.payload.isAscending));
+          break;
+        case 'hp':
+          sortedCharacters.sort((a,b) => compare(a.hp, b.hp, action.payload.isAscending));
+          break;
+        case 'status':
+          sortedCharacters.sort((a,b) => compare(a.status, b.status, action.payload.isAscending));
+          break;
+        default:
+          sortedCharacters.sort((a,b) => a.id - b.id)
+      }
+
+      for(let i = 0; i < sortedCharacters.length; i++) {
+        sortedCharacters[i].order = i;
+      }
+
+      return sortedCharacters;
 
     default:
       return state
   }
+}
+
+function compare(a, b, isAscending) {
+  // Empty text boxes will always be listed last
+  if(a === '' && b === '')   { return  0; }
+  if(a === '')               { return  1; }
+  if(b === '')               { return -1; }
+
+  return descend(a, b) * (isAscending ? -1 : 1);
+}
+
+function descend(a, b) {
+  // Numbers will be listed after non-numbers
+  if( isNaN(a) && !isNaN(b)) { return  1; }
+  if(!isNaN(a) &&  isNaN(b)) { return -1; }
+
+  // Numbers will be ordered high to low
+  if(!isNaN(a) && !isNaN(b)) { return b - a }
+
+  // Non-numbers will be ordered alphabetically
+  if(a < b)                  { return -1; }
+  if(a > b)                  { return  1; }
+                               return  0;
 }
 
 export default characterReducer
