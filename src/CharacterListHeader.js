@@ -8,7 +8,11 @@ import './CharacterListHeader.css';
 import { sortCharacters } from './actions';
 import { useDispatch } from 'react-redux';
 
-import CharacterListOrderButton from './CharacterListOrderButton';
+import IconButton from '@mui/material/IconButton';
+
+import UnorderedIcon from '@mui/icons-material/UnfoldMore';
+import OrderedAscendingIcon from '@mui/icons-material/KeyboardArrowUp';
+import OrderedDescendingIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function CharacterListHeader() {
   const dispatch = useDispatch();
@@ -29,59 +33,35 @@ export default function CharacterListHeader() {
     }
   }
 
+  function CustomHeader(props) {
+    return (
+      <Grid item xs={props.width}>
+        <Stack direction="row" alignItems="bottom" spacing={1} sx={{pr: props.isRightmostHeader ? 6 : 0 }}>
+          <h3 className="header">
+            {props.title}
+          </h3>
+          <IconButton size="small" onClick={ () => { handleOrder(props.index) }} >
+            { orderArray[props.index] ===  1 ? <OrderedAscendingIcon  fontSize="small"/>
+            : orderArray[props.index] === -1 ? <OrderedDescendingIcon fontSize="small"/>
+            :                                  <UnorderedIcon         fontSize="small"/>
+            }
+          </IconButton>
+        </Stack>
+      </Grid>
+    )
+  }
+
   return (
     <Box>
       <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
         <Grid container spacing={1}>
-
-          <Grid item xs={2.75}>
-            <Stack direction="row" alignItems="bottom" spacing={1}>
-              <h3 className="header">
-                Character Name
-              </h3>
-              <CharacterListOrderButton buttonState={orderArray[0]} orderArrayIndex={0} onOrder={handleOrder}/>
-            </Stack>
-          </Grid>
-
-          <Grid item xs={1.25}>
-            <Stack direction="row" alignItems="bottom" spacing={1}>
-              <h3 className="header">
-                Initiative
-              </h3>
-              <CharacterListOrderButton buttonState={orderArray[1]} orderArrayIndex={1} onOrder={handleOrder}/>
-            </Stack>
-          </Grid>
-
-          <Grid item xs={1.25}>
-            <Stack direction="row" alignItems="bottom" spacing={1}>
-              <h3 className="header">
-                Armor Class
-              </h3>
-              <CharacterListOrderButton buttonState={orderArray[2]} orderArrayIndex={2} onOrder={handleOrder}/>
-            </Stack>
-          </Grid>
-
-          <Grid item xs={1.75}>
-            <Stack direction="row" alignItems="bottom" spacing={1}>
-              <h3 className="header">
-                Hit Points
-              </h3>
-              <CharacterListOrderButton buttonState={orderArray[3]} orderArrayIndex={3} onOrder={handleOrder}/>
-            </Stack>
-          </Grid>
-
-          <Grid item xs={5}>
-            <Stack direction="row" alignItems="bottom" spacing={1} sx={{pr:6}}>
-              <h3 className="header">
-                Status Effects
-              </h3>
-              <CharacterListOrderButton buttonState={orderArray[4]} orderArrayIndex={4} onOrder={handleOrder}/>
-            </Stack>
-          </Grid>
-
+          <CustomHeader index={0} width={2.75} title="Character Name" />
+          <CustomHeader index={1} width={1.25} title="Initiative"     />
+          <CustomHeader index={2} width={1.25} title="Armor Class"    />
+          <CustomHeader index={3} width={1.75} title="Hit Points"     />
+          <CustomHeader index={4} width={5}    title="Status Effects" isRightmostHeader={true} />
         </Grid>
       </Stack>
-
       <Divider sx={{ mt: 0.5, mb: 0.5 }}/>
     </Box>
   );
