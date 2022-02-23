@@ -31,29 +31,18 @@ const characterReducer = (state = defaultState, action) => {
 
       switch(action.payload.orderBy) {
         case 'name':
-          sortedCharacters.sort((a,b) => compare(a.name, b.name, action.payload.isAscending));
-          break;
+          return sortedCharacters.sort((a,b) => compare(a.name, b.name, action.payload.isAscending));
         case 'init':
-          sortedCharacters.sort((a,b) => compare(a.init, b.init, action.payload.isAscending));
-          break;
+          return sortedCharacters.sort((a,b) => compare(a.init, b.init, action.payload.isAscending));
         case 'ac':
-          sortedCharacters.sort((a,b) => compare(a.ac, b.ac, action.payload.isAscending));
-          break;
+          return sortedCharacters.sort((a,b) => compare(a.ac, b.ac, action.payload.isAscending));
         case 'hp':
-          sortedCharacters.sort((a,b) => compare(a.hp, b.hp, action.payload.isAscending));
-          break;
+          return sortedCharacters.sort((a,b) => compare(a.hp, b.hp, action.payload.isAscending));
         case 'status':
-          sortedCharacters.sort((a,b) => compare(a.status, b.status, action.payload.isAscending));
-          break;
+          return sortedCharacters.sort((a,b) => compare(a.status, b.status, action.payload.isAscending));
         default:
-          sortedCharacters.sort((a,b) => a.id - b.id)
+          return sortedCharacters.sort((a,b) => a.id - b.id)
       }
-
-      for(let i = 0; i < sortedCharacters.length; i++) {
-        sortedCharacters[i].order = i;
-      }
-
-      return sortedCharacters;
 
     default:
       return state
