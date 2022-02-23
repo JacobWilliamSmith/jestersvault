@@ -40,23 +40,13 @@ export default function CharacterDataCell(props) {
           fullWidth
           placeholder={columnLayout.name}
           defaultValue={character[columnLayout.stat]}
-
           onChange = {
             event => {
-              dispatch (
-                updateCharacter (
-                  character.id,
-                  columnLayout.stat === 'name'   ? { name:   event.target.value } :
-                  columnLayout.stat === 'init'   ? { init:   event.target.value } :
-                  columnLayout.stat === 'ac'     ? { ac:     event.target.value } :
-                  columnLayout.stat === 'hp'     ? { hp:     event.target.value } :
-                  columnLayout.stat === 'status' ? { status: event.target.value } :
-                                            {                            }
-                )
-              )
+              const args = {};
+              args[columnLayout.stat] = event.target.value;
+              dispatch(updateCharacter(character.id, args))
             }
           }
-
           InputProps={ !columnLayout.hasStartAdornment ? {} : {
             startAdornment: (
               <InputAdornment position="start">
@@ -71,7 +61,6 @@ export default function CharacterDataCell(props) {
               </InputAdornment>
             ),
           }}
-          
         />
         
         { isRightmost &&
