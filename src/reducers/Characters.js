@@ -14,35 +14,14 @@ const characterReducer = (state = defaultState, action) => {
     case 'UPDATE_CHARACTER':
       const new_state = [...state]
       const index = new_state.findIndex(c => c.id === action.payload.id)
-      
-      if( action.payload.name   !== undefined ) { new_state[index].name   = action.payload.name   }
-      if( action.payload.init   !== undefined ) { new_state[index].init   = action.payload.init   }
-      if( action.payload.ac     !== undefined ) { new_state[index].ac     = action.payload.ac     }
-      if( action.payload.hp     !== undefined ) { new_state[index].hp     = action.payload.hp     }
-      if( action.payload.status !== undefined ) { new_state[index].status = action.payload.status }
-
+      Object.entries(action.payload).forEach(([key, value]) => { new_state[index][key] = value });
       return new_state
 
     case 'DELETE_CHARACTER':
       return state.filter((c) => c.id !== action.payload.id)
 
     case 'SORT_CHARACTERS':
-      let sortedCharacters = [...state]
-
-      switch(action.payload.orderBy) {
-        case 'name':
-          return sortedCharacters.sort((a,b) => compare(a.name, b.name, action.payload.isAscending));
-        case 'init':
-          return sortedCharacters.sort((a,b) => compare(a.init, b.init, action.payload.isAscending));
-        case 'ac':
-          return sortedCharacters.sort((a,b) => compare(a.ac, b.ac, action.payload.isAscending));
-        case 'hp':
-          return sortedCharacters.sort((a,b) => compare(a.hp, b.hp, action.payload.isAscending));
-        case 'status':
-          return sortedCharacters.sort((a,b) => compare(a.status, b.status, action.payload.isAscending));
-        default:
-          return sortedCharacters.sort((a,b) => a.id - b.id)
-      }
+      return [...state].sort((a,b) => compare(a[action.payload.orderBy], b[action.payload.orderBy], action.payload.isAscending));
 
     default:
       return state

@@ -22,13 +22,11 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function CharacterDataCell(props) {
   const dispatch = useDispatch();
   const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
-  
-  const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
-
   const tableLayout = useSelector(state => state.tableLayout)
   const columnLayout = tableLayout[props.columnIndex];
   const isRightmost = props.columnIndex === tableLayout.length - 1;
-
+  const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
+  
   return (
     <Grid item xs={columnLayout.width}>
       <Stack direction="row" alignItems="bottom" spacing={1}>
