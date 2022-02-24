@@ -14,7 +14,7 @@ import UnorderedIcon from '@mui/icons-material/UnfoldMore';
 import OrderedAscendingIcon from '@mui/icons-material/KeyboardArrowUp';
 import OrderedDescendingIcon from '@mui/icons-material/KeyboardArrowDown';
 
-export default function CharacterListHeader(props) {
+export default function CharacterListHeader() {
   const [orderArray, setOrderArray] = React.useState([0,0,0,0,0]);
   const dispatch = useDispatch();
   const tableLayout = useSelector(state => state.tableLayout);
