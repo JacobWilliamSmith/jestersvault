@@ -4,11 +4,8 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -29,7 +26,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 1 }}>
-          <Typography>{children}</Typography>
+          <Typography component={'div'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -47,11 +44,8 @@ export default function AuthDialog(props) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
+    console.log(newValue)
     setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
   };
 
   return (
@@ -70,11 +64,6 @@ export default function AuthDialog(props) {
               <Tab label="Create Account"/>
             </Tabs>
           </AppBar>
-          <SwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          >
             <TabPanel value={value} index={0} dir={theme.direction}>
               <DialogContent>
                 <TextField
@@ -100,44 +89,42 @@ export default function AuthDialog(props) {
             </TabPanel>
             <TabPanel value={value} index={1} dir={theme.direction}>
             <DialogContent>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  label="Username"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                />
-                <TextField
-                  margin="dense"
-                  label="Email"
-                  type="email"
-                  fullWidth
-                  variant="standard"
-                />
-                <TextField
-                  margin="dense"
-                  label="Password"
-                  type="password"
-                  fullWidth
-                  variant="standard"
-                />
-                <TextField
-                  margin="dense"
-                  label="Confirm Password"
-                  type="password"
-                  fullWidth
-                  variant="standard"
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={props.onClose}>Cancel</Button>
-                <Button onClick={props.onClose}>Create Account</Button>
-              </DialogActions>
-            </TabPanel>
-          </SwipeableViews>
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Username"
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                margin="dense"
+                label="Email"
+                type="email"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                margin="dense"
+                label="Password"
+                type="password"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                margin="dense"
+                label="Confirm Password"
+                type="password"
+                fullWidth
+                variant="standard"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={props.onClose}>Cancel</Button>
+              <Button onClick={props.onClose}>Create Account</Button>
+            </DialogActions>
+          </TabPanel>
         </Box>
-            
       </Dialog>
     </div>
   );
