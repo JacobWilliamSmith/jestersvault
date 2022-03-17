@@ -49,8 +49,7 @@ export default function DrawerMenu() {
         </CustomDrawerHeader>
         <Divider />
         <Stack spacing={1} sx={{ml: 2, mr: 2}} direction="column">
-          <Button variant="contained">Begin Combat</Button>
-          <Button variant="contained">Next Turn</Button>
+          {/* Insert material here */}
         </Stack>
       </Drawer>
   )
