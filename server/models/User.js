@@ -1,6 +1,15 @@
 const mongoose = require('mongoose')
 var uniqueValidator = require('mongoose-unique-validator');
 var bcrypt = require('bcrypt');
+import Character from './Character';
+
+
+const GamePreset = new mongoose.Schema(
+    {
+        name: String,
+        characters: [Character]
+    }
+)
 
 const UserSchema = new mongoose.Schema(
     {
@@ -19,12 +28,26 @@ const UserSchema = new mongoose.Schema(
             lowercase: true,
             unique: true,
             required: [true, "can't be blank"],
-            match: [/\S+@\S+\.\S+/, 'is invalid'],
-            index: true
+            match: [/\S+@\S+\.\S+/, 'is invalid']
         },
         password: {
             type: String,
             required: true
+        },
+        emailIsVerified: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
+        characterPresets: {
+            type: [Character],
+            required: true,
+            default: []
+        },
+        gamePresets: {
+            type: [GamePreset],
+            required: true,
+            default: []
         }
     },
     { timestamps: true },
