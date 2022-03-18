@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 var uniqueValidator = require('mongoose-unique-validator');
 var bcrypt = require('bcrypt');
-import Character from './Character';
+const Character = require('./Character').schema;
 
 
 const GamePreset = new mongoose.Schema(

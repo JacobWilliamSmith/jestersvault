@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const characterSchema = mongoose.Schema({
+const CharacterSchema = mongoose.Schema({
   characterName: {
       type: String
   },

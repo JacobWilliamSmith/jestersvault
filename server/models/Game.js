@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-import Character from './Character'
+const mongoose = require('mongoose');
+const Character = require('./Character').schema;
 
 // TODO: Hash game passwords
 
