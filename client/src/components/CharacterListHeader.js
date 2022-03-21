@@ -3,9 +3,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import './CharacterListHeader.css';
+import '../css/CharacterListHeader.css';
 
-import { sortCharacters } from './actions';
+import { sortCharacters } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import IconButton from '@mui/material/IconButton';

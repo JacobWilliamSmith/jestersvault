@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleDrawer } from './actions';
+import { toggleDrawer } from '../actions';
 
 export const CustomDrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",

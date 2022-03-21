@@ -1,12 +1,12 @@
 import * as React from 'react';
-import './CharacterListHeader.css';
+import '../css/CharacterListHeader.css';
 
 import Button from '@mui/material/Button';
 
 import Character from './Character';
 import CharacterListHeader from './CharacterListHeader';
 
-import { createCharacter } from './actions';
+import { createCharacter } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function CharacterList() {

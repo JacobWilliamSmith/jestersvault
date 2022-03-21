@@ -5,10 +5,16 @@ import { CustomDrawerHeader } from './DrawerMenu';
 import { useSelector } from 'react-redux';
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import { AuthContext } from '../contexts/Auth';
+import React, {useContext} from 'react';
 
 function App() {
   const isDrawerOpen = useSelector(state => state.isDrawerOpen)
   const drawerWidth = useSelector(state => state.drawerWidth)
+  const {user, setUser, isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
+  
+  console.log(user);
+  console.log(isAuthenticated);
 
   const theme = createTheme({
     palette: {

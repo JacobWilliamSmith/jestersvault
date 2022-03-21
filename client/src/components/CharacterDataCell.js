@@ -15,7 +15,7 @@ import MoveIcon from '@mui/icons-material/UnfoldMore';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { deleteCharacter, updateCharacter } from './actions';
+import { deleteCharacter, updateCharacter } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 
 //TODO: Encapsulate this class within Character.js without causing the textbox to rerender when the updateCharacter action is performed

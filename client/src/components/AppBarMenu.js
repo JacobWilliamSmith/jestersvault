@@ -16,7 +16,7 @@ import DrawerMenu from './DrawerMenu';
 import AuthDialog from './AuthDialog';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleDrawer } from './actions';
+import { toggleDrawer } from '../actions';
 
 export default function AppBarMenu() {
   const [isAuthOpen, setIsAuthOpen] = React.useState(false);
