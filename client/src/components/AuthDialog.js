@@ -1,19 +1,16 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 export default function AuthDialog(props) {
   const [tab, setTab] = React.useState(0);
-
+  
   const handleChangeTab = (event, newValue) => {
     setTab(newValue);
   };
@@ -31,44 +28,13 @@ export default function AuthDialog(props) {
           </AppBar>
 
           <div role="tabpanel" hidden={tab !== 0} >
-            { tab === 0 && (
-              <Box sx={{ p: 1 }}>
-                <Typography component={'div'}>
-                <DialogContent>
-                  <TextField margin="dense" variant="standard" fullWidth label="Username" type="text" autoFocus />
-                  <TextField margin="dense" variant="standard" fullWidth label="Password" type="password" />
-                </DialogContent>
-
-                <DialogActions>
-                  <Button onClick={props.onClose}>Cancel</Button>
-                  <Button onClick={props.onClose}>Log in</Button>
-                </DialogActions>
-
-                </Typography>
-              </Box>
-            )}
+            { tab === 0 && ( <LoginForm onClose={props.onClose}/> )}
           </div>
           
           <div role="tabpanel" hidden={tab !== 1} >
-            { tab === 1 && (
-              <Box sx={{ p: 1 }}>
-                <Typography component={'div'}>
-                <DialogContent>
-                  <TextField margin="dense" variant="standard" fullWidth label="Username" type="text" autoFocus />
-                  <TextField margin="dense" variant="standard" fullWidth label="Email" type="email" />
-                  <TextField margin="dense" variant="standard" fullWidth label="Password" type="password" />
-                  <TextField margin="dense" variant="standard" fullWidth label="Confirm Password" type="password" />
-                </DialogContent>
-
-                <DialogActions>
-                  <Button onClick={props.onClose}>Cancel</Button>
-                  <Button onClick={props.onClose}>Log in</Button>
-                </DialogActions>
-
-                </Typography>
-              </Box>
-            )}
+            { tab === 1 && ( <RegisterForm onClose={props.onClose}/> )}
           </div>
+          
         </Box>
       </Dialog>
     </div>
