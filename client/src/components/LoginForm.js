@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
-import AuthContext from '../contexts/Auth';
+import { AuthContext } from '../contexts/Auth';
 import AuthService from '../services/Auth';
 
 export default function AuthDialog(props) {
