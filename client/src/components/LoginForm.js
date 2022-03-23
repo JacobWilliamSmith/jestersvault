@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { AuthContext } from '../contexts/Auth';
 import AuthService from '../services/Auth';
 
-export default function AuthDialog(props) {
+export default function LoginForm(props) {
   const [login, setLogin] = useState({username: "", password: ""});
   const [message, setMessage] = useState(null);
   const authContext = useContext(AuthContext);
