@@ -34,9 +34,3 @@ export const sortCharacters = (orderBy, isAscending) => {
     payload: {orderBy, isAscending}
   }
 }
-
-export const toggleDrawer = () => {
-  return {
-    type: 'TOGGLE_DRAWER'
-  }
-}
