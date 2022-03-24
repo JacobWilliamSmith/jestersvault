@@ -17,10 +17,10 @@ const UserSchema = new mongoose.Schema(
             type: String,
             lowercase: true,
             unique: true,
-            min: [4, "is too short (must be at least 4 characters)"],
-            mas: [32, "is too long (must be at most 32 characters)"],
+            minLength: [4, "is too short (must be at least 4 characters)"],
+            maxLength: [32, "is too long (must be at most 32 characters)"],
             required: [true, "can't be blank"],
-            match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
+            match: [/^[a-zA-Z0-9]+$/, 'is invalid (must have only letters and numbers)'],
             index: true
         },
         email: {
