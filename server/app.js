@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
+const config = require('./config')
 
 const cookieParser = require('cookie-parser')
-const apiPort = 8000
 
 app.use(cookieParser())
 app.use(express.json())
@@ -16,6 +16,6 @@ app.use('/user', userRouter);
 const debugRouter = require('./routes/Debug');
 app.use('/debug', debugRouter);
 
-app.listen(apiPort, () => {
-    console.log(`Express server running on port ${apiPort}`)
+app.listen(config.serverPort, () => {
+    console.log(`Express server running on port ${config.serverPort}`)
 })
