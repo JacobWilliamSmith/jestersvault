@@ -47,7 +47,9 @@ export default function AuthDialog(props) {
     AuthService.register(info).then(data=>{
       const { message } = data;
       setMessage(message);
-      changeTab(e, 0);
+      if(!message.msgError) {
+        changeTab(e, 0);
+      }
     })
   }
 
