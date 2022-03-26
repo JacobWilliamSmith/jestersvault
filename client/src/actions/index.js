@@ -34,3 +34,17 @@ export const sortCharacters = (orderBy, isAscending) => {
     payload: {orderBy, isAscending}
   }
 }
+
+export const startEncounter = (numIds) => {
+  return {
+    type: 'START_ENCOUNTER',
+    payload: {numIds}
+  }
+}
+
+export const advanceTurn = (numIds) => {
+  return {
+    type: 'ADVANCE_TURN',
+    payload: {numIds}
+  }
+}

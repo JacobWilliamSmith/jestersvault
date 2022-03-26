@@ -18,7 +18,11 @@ const characterReducer = (state = defaultState, action) => {
       return new_state
 
     case 'DELETE_CHARACTER':
-      return state.filter((c) => c.id !== action.payload.id)
+      const delState = state.filter((c) => c.id !== action.payload.id);
+      for (let i = 0; i < delState.length; i++) {
+        delState[i].id = i;
+      }
+      return delState
 
     case 'SORT_CHARACTERS':
       return [...state].sort((a,b) => compare(a[action.payload.orderBy], b[action.payload.orderBy], action.payload.isAscending));
