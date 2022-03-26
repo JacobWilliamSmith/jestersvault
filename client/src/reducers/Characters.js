@@ -3,11 +3,11 @@ const defaultState = [
   { id: 1, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
 ];
 
-let idIncrementer = defaultState.length;
 
 const characterReducer = (state = defaultState, action) => {
   switch(action.type) {
     case 'CREATE_CHARACTER':
+      let idIncrementer = defaultState.length
       const emptyCharacter = { id: idIncrementer++, name: '', init: '', ac: '', hp: '', status: ''};
       return [...state, emptyCharacter]
 
