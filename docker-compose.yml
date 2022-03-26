@@ -1,9 +1,12 @@
+version: '3.6'
+
 services:
   client:
     image: react-app
     build:
       context: ./client
       dockerfile: Dockerfile
+    container_name: client
     stdin_open: true
     command: npm start
     ports: 
@@ -18,6 +21,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    container_name: server
     command: npm start
     ports:
       - "8000:8000"
@@ -28,12 +32,15 @@ services:
 
   database:
     image: mongo
+    container_name: database
     ports:
       - "27017:27017"
     networks:
       - jestersvault
     volumes:
       - mongo-data:/data/db
+    logging:
+      driver: 'none'
 
 networks:
   jestersvault:
