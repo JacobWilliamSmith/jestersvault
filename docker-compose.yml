@@ -9,6 +9,11 @@ services:
     container_name: client
     stdin_open: true
     command: npm start
+    volumes:
+      - /jestersvault/node_modules
+      - ./client:/jestersvault
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
     ports: 
       - "3000:3000"
     networks:
@@ -23,6 +28,11 @@ services:
       dockerfile: Dockerfile
     container_name: server
     command: npm start
+    volumes:
+      - /jestersvault/node_modules
+      - ./server:/jestersvault
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
     ports:
       - "8000:8000"
     networks:
