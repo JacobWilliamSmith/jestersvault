@@ -1,0 +1,43 @@
+services:
+  client:
+    image: react-app
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    stdin_open: true
+    command: npm start
+    ports: 
+      - "3000:3000"
+    networks:
+      - jestersvault
+    depends_on:
+      - server
+
+  server:
+    image: api-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: npm start
+    ports:
+      - "8000:8000"
+    networks:
+      - jestersvault
+    depends_on:
+      - database
+
+  database:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - jestersvault
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  jestersvault:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
