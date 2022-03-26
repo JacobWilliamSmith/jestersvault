@@ -12,7 +12,7 @@ export default function Character(props) {
   const tableLayout = useSelector(state => state.tableLayout);
 
   return (
-    <Box>
+    <Box className={props.class}>
       <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
         <Grid container spacing={1}>
           { tableLayout.map((column) => (

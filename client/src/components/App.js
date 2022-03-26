@@ -1,6 +1,7 @@
 import CharacterList from './CharacterList';
 import AppBarMenu from './AppBarMenu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import TurnCounterMenu from './TurnCounterMenu';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <AppBarMenu />
       <CharacterList />
+      <TurnCounterMenu/>
     </ThemeProvider>
   );
 }

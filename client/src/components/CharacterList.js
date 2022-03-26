@@ -1,5 +1,7 @@
 import * as React from 'react';
 import '../css/CharacterListHeader.css';
+import '../css/Character.css';
+import { ClassNames } from '@emotion/react';
 
 import Button from '@mui/material/Button';
 
@@ -12,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function CharacterList() {
   const dispatch = useDispatch();
   const characters = useSelector(state => state.characters);
+  const selectedId = useSelector(state => state.turns.selectedId);
 
   function handleCreateCharacter() {
     const createCharacterPromise = () => new Promise((resolve, reject) => {
@@ -27,7 +30,10 @@ export default function CharacterList() {
   return (
     <div>
       <CharacterListHeader />
-      { characters.map((c) => ( <Character key={c.id} id={c.id} /> ))}
+      { characters.map((c) => ( 
+        <Character 
+        key={c.id} id={c.id} class={c.id === selectedId ? 'character-highlighted' : 'character'}/>
+       ))}
       <Button fullWidth sx={{m:0, p:0}} onClick={ () => {handleCreateCharacter()} }>
         <h3>ADD CHARACTER</h3>
       </Button>
