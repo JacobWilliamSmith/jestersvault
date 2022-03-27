@@ -6,7 +6,6 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import AppBar from '@mui/material/AppBar'
 
-import {useEffect} from 'react';
 import { startEncounter, advanceTurn } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -17,7 +16,7 @@ export default function TurnCounterMenu() {
 
   return (
     <Box>
-      <AppBar  position="fixed" sx={{ top: 'auto', bottom: 0, height: "8%"}}>
+      <AppBar position="fixed" sx={{top: 'auto', bottom: 0 }}>
         <Toolbar sx={{ mx: 'auto'}}>
           {
             inEncounter
