@@ -1,37 +1,43 @@
 const defaultState = {
-  selectedId: -1,
-  inEncounter: false,
-  numIds: 0
+  activeCharacterId: null
 };
 
 const turnsReducer = (state = defaultState, action) =>
 {
   switch(action.type) {
     case 'START_ENCOUNTER':
+      if(action.payload.characters.length === 0) {
+        return {
+          ...state,
+          activeCharacterId: null
+        }
+      }
       return {
         ...state,
-        inEncounter: true,
-        selectedId: 0,
-        numIds: action.payload.numIds
+        activeCharacterId: action.payload.characters[0].id
       }
     
     case 'ADVANCE_TURN':
-      if(state.selectedId < (action.payload.numIds-1))
-      {
+      if(action.payload.characters.length === 0) {
         return {
           ...state,
-          selectedId: state.selectedId+1
+          activeCharacterId: null
         }
       }
-      else
-      {
-        return {
-          ...state,
-          selectedId: 0
-        }
+      return {
+        ...state,
+        activeCharacterId: action.payload.characters[(action.payload.characters.findIndex((c)=>c.id === state.activeCharacterId)+1) % action.payload.characters.length].id
       }
+
+    case 'END_ENCOUTER':
+      return {
+        ...state,
+        activeCharacterId: null
+      }
+      
     default:
       return state
+      
   }
 }
 

@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function CharacterList() {
   const dispatch = useDispatch();
   const characters = useSelector(state => state.characters);
-  const selectedId = useSelector(state => state.turns.selectedId);
+  const activeCharacterId = useSelector(state => state.turns.activeCharacterId);
 
   function handleCreateCharacter() {
     const createCharacterPromise = () => new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ export default function CharacterList() {
       <CharacterListHeader />
       { characters.map((c) => ( 
         <Character 
-        key={c.id} id={c.id} class={c.id === selectedId ? 'character-highlighted' : 'character'}/>
+        key={c.id} id={c.id} class={c.id === activeCharacterId ? 'character-highlighted' : 'character'}/>
        ))}
       <Button fullWidth sx={{m:0, p:0}} onClick={ () => {handleCreateCharacter()} }>
         <h3>ADD CHARACTER</h3>

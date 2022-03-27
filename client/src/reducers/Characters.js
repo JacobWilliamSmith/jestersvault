@@ -7,7 +7,7 @@ const defaultState = [
 const characterReducer = (state = defaultState, action) => {
   switch(action.type) {
     case 'CREATE_CHARACTER':
-      let idIncrementer = defaultState.length
+      let idIncrementer = state.length
       const emptyCharacter = { id: idIncrementer++, name: '', init: '', ac: '', hp: '', status: ''};
       return [...state, emptyCharacter]
 
