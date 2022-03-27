@@ -3,11 +3,12 @@ const defaultState = [
   { id: 1, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
 ];
 
+let idIncrementer = defaultState.length;
 
 const characterReducer = (state = defaultState, action) => {
   switch(action.type) {
     case 'CREATE_CHARACTER':
-      let idIncrementer = state.length
+      
       const emptyCharacter = { id: idIncrementer++, name: '', init: '', ac: '', hp: '', status: ''};
       return [...state, emptyCharacter]
 
@@ -18,11 +19,7 @@ const characterReducer = (state = defaultState, action) => {
       return new_state
 
     case 'DELETE_CHARACTER':
-      const delState = state.filter((c) => c.id !== action.payload.id);
-      for (let i = 0; i < delState.length; i++) {
-        delState[i].id = i;
-      }
-      return delState
+      return state.filter((c) => c.id !== action.payload.id)
 
     case 'SORT_CHARACTERS':
       return [...state].sort((a,b) => compare(a[action.payload.orderBy], b[action.payload.orderBy], action.payload.isAscending));
