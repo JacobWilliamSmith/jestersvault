@@ -1,11 +1,9 @@
 import * as React from 'react';
-import '../css/CharacterListHeader.css';
-import '../css/Character.css';
-import { ClassNames } from '@emotion/react';
 
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 
 import Character from './Character';
 import CharacterListHeader from './CharacterListHeader';
@@ -16,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function CharacterList() {
   const dispatch = useDispatch();
   const characters = useSelector(state => state.characters);
-  const activeCharacterId = useSelector(state => state.turns.activeCharacterId);
+  
 
   function handleCreateCharacter() {
     const createCharacterPromise = () => new Promise((resolve, reject) => {
@@ -32,13 +30,16 @@ export default function CharacterList() {
   return (
     <div>
       <CharacterListHeader />
-      { characters.map((c) => ( 
-        <Character 
-        key={c.id} id={c.id} class={c.id === activeCharacterId ? 'character-highlighted' : 'character'}/>
+      { characters.map((c) => (
+        <Box key={c.id} >
+          <Character id={c.id}/>
+          <Divider/>
+        </Box>
+        
       ))}
-      <Box sx={{mb:9, mt: 1, ml: 1, mr: 1}}>
+      <Box sx={{mb:9, mt: 0.5, ml: 1, mr: 1}}>
         <Button fullWidth onClick={ () => {handleCreateCharacter()} }>
-          <Typography >ADD CHARACTER</Typography>
+          <Typography>ADD CHARACTER</Typography>
         </Button>
       </Box>
     </div>

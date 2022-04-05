@@ -31,7 +31,7 @@ export default function CharacterListHeader() {
     return (
       <Grid item xs={tableLayout[props.index].width}>
         <Stack direction="row" alignItems="bottom" spacing={1} sx={{pr: isRightmost ? 6 : 0 }}>
-          <h3 className="header">
+          <h3 className="headerTitle">
             {tableLayout[props.index].name}
           </h3>
           <IconButton size="small" onClick={ () => { handleOrder(props.index) }} >
@@ -46,13 +46,13 @@ export default function CharacterListHeader() {
   }
   
   return (
-    <Box>
+    <Box className="ignoreShadow">
       <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
         <Grid container spacing={1}>
           { tableLayout.map( (column) => <CustomHeader key={column.stat} index={tableLayout.findIndex((i) => (i.stat === column.stat))}/> ) }
         </Grid>
       </Stack>
-      <Divider sx={{ mt: 0.5, mb: 0.5 }}/>
+      <Divider sx={{ mt: 0.5 }}/>
     </Box>
   )
 }

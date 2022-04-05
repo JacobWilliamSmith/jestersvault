@@ -1,6 +1,12 @@
 const defaultState = [
-  { id: 0, name: 'Jonny Hexblade', init: '', ac: '99', hp: '999 / 999', status: 'Literally a demigod'},
-  { id: 1, name: 'Nameless Rogue', init: '', ac: '19', hp: '15 / 102', status: 'Edgy backstory, sunlight sensitivity'}
+  { id: 0, name: 'Kayde (Jacob)', init: '', ac: '20', hp: '115 / 125', status: '31 ward hp, water breathing'},
+  { id: 1, name: 'Lyric (Lee)', init: '', ac: '18', hp: '108 / 119', status: 'Rally 1'},
+  { id: 2, name: 'Tado (Greg)', init: '', ac: '16', hp: '44 / 67', status: ''},
+  { id: 3, name: 'Chorus (Sam)', init: '', ac: '16', hp: '87 / 97', status: ''},
+  { id: 4, name: 'Sark (Jonah)', init: '', ac: '16', hp: '28 / 120', status: ''},
+  { id: 5, name: 'Garus (Ajay)', init: '', ac: '15', hp: '36 / 104', status: ''},
+  { id: 6, name: 'Elmer', init: '', ac: '15', hp: '25 / 50', status: ''},
+  { id: 7, name: 'Zog', init: '', ac: '', hp: '', status: ''}
 ];
 
 let idIncrementer = defaultState.length;
