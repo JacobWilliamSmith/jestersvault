@@ -1,4 +1,5 @@
-import * as React from 'react';
+import {useState, useEffect, useCallback } from 'react';
+import debounce from 'lodash/debounce';
 
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -25,8 +26,27 @@ export default function CharacterDataCell(props) {
   const tableLayout = useSelector(state => state.tableLayout)
   const columnLayout = tableLayout[props.columnIndex];
   const isRightmost = props.columnIndex === tableLayout.length - 1;
-  const [buttonsExpanded, setButtonsExpanded] = React.useState(false);
+  const [buttonsExpanded, setButtonsExpanded] = useState(false);
   
+  const [data, setData] = useState(character[columnLayout.stat]);
+
+  const softUpdate = e => {
+    setData(e.target.value);
+  }
+
+  const hardUpdate = () => {
+    const args = {};
+    args[columnLayout.stat] = data;
+    dispatch(updateCharacter(character.id, args));
+  };
+
+  const delayedHardUpdate = useCallback(debounce(hardUpdate, 500), [data]);
+  
+  useEffect(() => {
+    delayedHardUpdate();
+    return delayedHardUpdate.cancel;
+  }, [data, delayedHardUpdate]);
+
   return (
     <Grid item xs={columnLayout.width}>
       <Stack direction="row" alignItems="bottom" spacing={1}>
@@ -37,14 +57,8 @@ export default function CharacterDataCell(props) {
           autoComplete="off"
           fullWidth
           placeholder={columnLayout.name}
-          defaultValue={character[columnLayout.stat]}
-          onChange = {
-            event => {
-              const args = {};
-              args[columnLayout.stat] = event.target.value;
-              dispatch(updateCharacter(character.id, args))
-            }
-          }
+          defaultValue={data}
+          onChange = {softUpdate}
           InputProps={ !columnLayout.hasStartAdornment ? {} : {
             startAdornment: (
               <InputAdornment position="start">
