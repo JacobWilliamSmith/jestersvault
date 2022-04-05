@@ -1,21 +1,15 @@
+import { v4 } from 'node-uuid';
+
 const defaultState = [
-  { id: 0, name: 'Kayde (Jacob)', init: '', ac: '20', hp: '115 / 125', status: '31 ward hp, water breathing'},
-  { id: 1, name: 'Lyric (Lee)', init: '', ac: '18', hp: '108 / 119', status: 'Rally 1'},
-  { id: 2, name: 'Tado (Greg)', init: '', ac: '16', hp: '44 / 67', status: ''},
-  { id: 3, name: 'Chorus (Sam)', init: '', ac: '16', hp: '87 / 97', status: ''},
-  { id: 4, name: 'Sark (Jonah)', init: '', ac: '16', hp: '28 / 120', status: ''},
-  { id: 5, name: 'Garus (Ajay)', init: '', ac: '15', hp: '36 / 104', status: ''},
-  { id: 6, name: 'Elmer', init: '', ac: '15', hp: '25 / 50', status: ''},
-  { id: 7, name: 'Zog', init: '', ac: '', hp: '', status: ''}
+  { id: v4(), name: 'Vikrith, Captain of the Guard', init: '', ac: '20', hp: '115 / 125', status: ''},
+  { id: v4(), name: 'Erydon, Grey Prophet', init: '', ac: '18', hp: '108 / 119', status: ''}
 ];
 
-let idIncrementer = defaultState.length;
 
 const characterReducer = (state = defaultState, action) => {
   switch(action.type) {
     case 'CREATE_CHARACTER':
-      
-      const emptyCharacter = { id: idIncrementer++, name: '', init: '', ac: '', hp: '', status: ''};
+      const emptyCharacter = { id: v4(), name: '', init: '', ac: '', hp: '', status: ''};
       return [...state, emptyCharacter]
 
     case 'UPDATE_CHARACTER':
