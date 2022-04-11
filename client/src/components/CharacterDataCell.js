@@ -35,9 +35,11 @@ export default function CharacterDataCell(props) {
   }
 
   const hardUpdate = () => {
-    const args = {};
-    args[columnLayout.stat] = data;
-    dispatch(updateCharacter(character.id, args));
+    if(character[columnLayout.stat] !== data) {
+      const args = {};
+      args[columnLayout.stat] = data;
+      dispatch(updateCharacter(character.id, args));
+    }
   };
 
   const delayedHardUpdate = useCallback(debounce(hardUpdate, 500), [data]);
@@ -50,7 +52,6 @@ export default function CharacterDataCell(props) {
   return (
     <Grid item xs={columnLayout.width}>
       <Stack direction="row" alignItems="bottom" spacing={1}>
-
         <TextField
           variant="standard"
           margin="dense"
