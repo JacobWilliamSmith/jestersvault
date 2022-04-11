@@ -27,10 +27,12 @@ export default function CharacterListHeader() {
   }
 
   function CustomHeader(props) {
+    const isLeftmost = props.index === 0;
     const isRightmost = props.index === tableLayout.length - 1;
+    
     return (
       <Grid item xs={tableLayout[props.index].width}>
-        <Stack direction="row" alignItems="bottom" spacing={1} sx={{pr: isRightmost ? 6 : 0 }}>
+        <Stack direction="row" alignItems="bottom" spacing={1} sx={{pl: isLeftmost ? 6 : 0, pr: isRightmost ? 6 : 0 }}>
           <h3 className="headerTitle">
             {tableLayout[props.index].name}
           </h3>

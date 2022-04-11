@@ -7,6 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Slide from '@mui/material/Slide';
+import Avatar from '@mui/material/Avatar';
 
 import InitIcon from '@mui/icons-material/Bolt';
 import ACIcon from '@mui/icons-material/Shield';
@@ -25,6 +26,7 @@ export default function CharacterDataCell(props) {
   const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
   const tableLayout = useSelector(state => state.tableLayout)
   const columnLayout = tableLayout[props.columnIndex];
+  const isLeftmost = props.columnIndex === 0;
   const isRightmost = props.columnIndex === tableLayout.length - 1;
   const [buttonsExpanded, setButtonsExpanded] = useState(false);
   
@@ -51,7 +53,14 @@ export default function CharacterDataCell(props) {
 
   return (
     <Grid item xs={columnLayout.width}>
-      <Stack direction="row" alignItems="bottom" spacing={1}>
+      <Stack direction="row" sx={{mt:0.25}} alignItems="flex-end" spacing={1}>
+
+        { isLeftmost &&
+          <Avatar variant="rounded" src={character.image} >
+            {character.name.charAt(0).toUpperCase()}
+          </Avatar>
+        }
+
         <TextField
           variant="standard"
           margin="dense"
@@ -77,25 +86,25 @@ export default function CharacterDataCell(props) {
         />
         
         { isRightmost &&
-          <IconButton onClick={ () => { setButtonsExpanded((prev) => !prev); }} >
-            <MoreIcon />
-          </IconButton>
-        }
+          <Stack direction="row" alignItems="flex-end" spacing={1} sx={{pb:0.25}}>
+            <IconButton onClick={ () => { setButtonsExpanded((prev) => !prev); }} >
+              <MoreIcon />
+            </IconButton>
 
-        { isRightmost &&
-          <Slide direction="left" in={buttonsExpanded} mountOnEnter unmountOnExit>
-            <Stack direction="row" alignItems="bottom" spacing={1}>
+            <Slide direction="left" in={buttonsExpanded} mountOnEnter unmountOnExit>
+              <Stack direction="row" alignItems="flex-end" spacing={1}>
 
-              <IconButton>
-                <MoveIcon />
-              </IconButton>
+                <IconButton>
+                  <MoveIcon />
+                </IconButton>
 
-              <IconButton color='primary' onClick={ () => { dispatch(deleteCharacter(character.id)); } }>
-                <DeleteIcon />
-              </IconButton>
+                <IconButton color='primary' onClick={ () => { dispatch(deleteCharacter(character.id)); } }>
+                  <DeleteIcon />
+                </IconButton>
 
-            </Stack>
-          </Slide>
+              </Stack>
+            </Slide>
+          </Stack>
         }
       </Stack>
     </Grid>
