@@ -15,7 +15,6 @@ export default function CharacterList() {
   const dispatch = useDispatch();
   const characters = useSelector(state => state.characters);
   
-
   function handleCreateCharacter() {
     const createCharacterPromise = () => new Promise((resolve, reject) => {
       dispatch(createCharacter());
@@ -28,20 +27,19 @@ export default function CharacterList() {
   }
 
   return (
-    <div>
+    <Box>
       <CharacterListHeader />
       { characters.map((c) => (
         <Box key={c.id} >
           <Character id={c.id}/>
           <Divider/>
-        </Box>
-        
+        </Box>  
       ))}
       <Box sx={{mb:9, mt: 0.5, ml: 1, mr: 1}}>
         <Button fullWidth onClick={ () => {handleCreateCharacter()} }>
           <Typography>ADD CHARACTER</Typography>
         </Button>
       </Box>
-    </div>
+    </Box>
   )
 }
