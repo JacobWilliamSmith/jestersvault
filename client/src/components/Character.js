@@ -1,32 +1,31 @@
-import {useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import debounce from 'lodash/debounce';
-
-import '../css/Character.css';
 
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Slide from '@mui/material/Slide';
+import Avatar from '@mui/material/Avatar';
 
 import InitIcon from '@mui/icons-material/Bolt';
 import ACIcon from '@mui/icons-material/Shield';
 import HPIcon from '@mui/icons-material/Favorite';
 import StatusIcon from '@mui/icons-material/Flare';
-
-import { useSelector, useDispatch } from 'react-redux';
-
-import IconButton from '@mui/material/IconButton';
-import Slide from '@mui/material/Slide';
-import Avatar from '@mui/material/Avatar';
-
 import ViewIcon from '@mui/icons-material/Visibility';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import SaveIcon from '@mui/icons-material/BookmarkAdd';
+import UnsaveIcon from '@mui/icons-material/BookmarkRemove';
+import ReorderIcon from '@mui/icons-material/Reorder';
+
 import { deleteCharacter, updateCharacter } from '../actions';
+import '../css/Character.css';
 
 export default function Character(props) {
   const tableLayout = useSelector(state => state.tableLayout);
@@ -34,7 +33,7 @@ export default function Character(props) {
   const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
   const dispatch = useDispatch();
   
-  const [slideMenuExpanded, setSlideMenuExpanded] = useState(false);
+  const [isSlideMenuExpanded, setIsSlideMenuExpanded] = useState(false);
 
   const [data, setData] = useState(character);
   const [isCharacterExpanded, setIsCharacterExpanded] = useState(false);
@@ -58,6 +57,11 @@ export default function Character(props) {
     delayedHardUpdate();
     return delayedHardUpdate.cancel;
   }, [data, delayedHardUpdate]);
+
+  const toggleExpandedView = () => {
+    setIsCharacterExpanded(!isCharacterExpanded);
+    setIsSlideMenuExpanded()
+  }
 
   function CompressedViewCell(columnIndex) {
     const columnLayout = tableLayout[columnIndex];
@@ -100,15 +104,23 @@ export default function Character(props) {
           
           { isRightmost &&
             <Stack direction="row" alignItems="flex-end" spacing={1} sx={{pb:0.25}}>
-              <IconButton onClick={ () => { setSlideMenuExpanded((prev) => !prev); }} >
+              <IconButton onClick={ () => { setIsSlideMenuExpanded((prev) => !prev); }} >
                 <MoreIcon />
               </IconButton>
   
-              <Slide direction="left" in={slideMenuExpanded} mountOnEnter unmountOnExit>
+              <Slide direction="left" in={isSlideMenuExpanded} mountOnEnter unmountOnExit>
                 <Stack direction="row" alignItems="flex-end" spacing={1}>
   
-                  <IconButton onClick={ () => { setIsCharacterExpanded(!isCharacterExpanded); } }>
+                  <IconButton onClick={toggleExpandedView}>
                     <ViewIcon />
+                  </IconButton>
+
+                  <IconButton>
+                    <ReorderIcon />
+                  </IconButton>
+
+                  <IconButton>
+                    <SaveIcon />
                   </IconButton>
   
                   <IconButton color='primary' onClick={ () => { dispatch(deleteCharacter(character.id)); } }>
@@ -187,9 +199,38 @@ export default function Character(props) {
                 </Grid>
                 
               </Grid>
-              { ExpandedViewTextField("status", "Status",
-                { startAdornment: ( <InputAdornment position="start"> <StatusIcon /> </InputAdornment> )})
-              }
+              <Stack direction="row" sx={{mt: 1, width: '100%'}} alignItems="flex-end" spacing={1}>
+                { ExpandedViewTextField("status", "Status",
+                  { startAdornment: ( <InputAdornment position="start"> <StatusIcon /> </InputAdornment> )})
+                }
+                <Stack direction="row" alignItems="flex-end" spacing={1}>
+                  <IconButton size="small" onClick={ () => { setIsSlideMenuExpanded((prev) => !prev); }} >
+                    <MoreIcon />
+                  </IconButton>
+      
+                  <Slide direction="left" in={isSlideMenuExpanded} mountOnEnter unmountOnExit>
+                    <Stack direction="row" alignItems="flex-end" spacing={1}>
+      
+                      <IconButton size="small" onClick={ toggleExpandedView }>
+                        <ViewIcon />
+                      </IconButton>
+
+                      <IconButton size="small">
+                        <ReorderIcon />
+                      </IconButton>
+
+                      <IconButton size="small">
+                        <SaveIcon />
+                      </IconButton>
+      
+                      <IconButton size="small" color='primary' onClick={ () => { dispatch(deleteCharacter(character.id)); } }>
+                        <DeleteIcon />
+                      </IconButton>
+      
+                    </Stack>
+                  </Slide>
+                </Stack>
+              </Stack>
             </Grid>
           </Grid>
         </Grid>
