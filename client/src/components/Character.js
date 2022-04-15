@@ -18,6 +18,7 @@ import StatusIcon from '@mui/icons-material/Flare';
 import { deleteCharacter, updateCharacter } from '../actions';
 import '../css/Character.css';
 import SlideMenu from './SlideMenu';
+import ImageMenu from './ImageMenu';
 
 export default function Character(props) {
   const tableLayout = useSelector(state => state.tableLayout);
@@ -27,6 +28,21 @@ export default function Character(props) {
 
   const [data, setData] = useState(character);
   const [isCharacterExpanded, setIsCharacterExpanded] = useState(false);
+
+  const [menuAnchor, setMenuAnchor] = useState(null);
+  const isImageMenuOpen = Boolean(menuAnchor);
+
+  const imageMenuSubmit = (imageUrl) => {
+    setData({...data, ["image"]: imageUrl});
+  }
+
+  const imageMenuOpen = (event) => {
+    setMenuAnchor(event.currentTarget);
+  };
+
+  const imageMenuClose = () => {
+    setMenuAnchor(null);
+  }
 
   const softUpdate = (key, event) => {
     setData({...data, [key]: event.target.value});
@@ -66,9 +82,20 @@ export default function Character(props) {
         <Stack direction="row" sx={{mt:0.25}} alignItems="flex-end" spacing={1}>
   
           { isLeftmost &&
-            <Avatar variant="rounded" src={character.image} >
-              {character.name.charAt(0).toUpperCase()}
-            </Avatar>
+            <div>
+              <Avatar
+                variant="rounded"
+                src={character.image}
+                id="avatar"
+                aria-controls={isImageMenuOpen ? 'image-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={isImageMenuOpen ? 'true' : undefined}
+                onClick={imageMenuOpen}
+              >
+                {character.name.charAt(0).toUpperCase()}
+              </Avatar>
+              <ImageMenu anchorId="avatar" anchor={menuAnchor} onClose={imageMenuClose} onSubmit={imageMenuSubmit}/>
+            </div>
           }
   
           <TextField
@@ -134,10 +161,19 @@ export default function Character(props) {
         <Grid container spacing={0}>
           <Grid item xs={2}>
             <CardMedia
+              id="cardImage"
+              aria-controls={isImageMenuOpen ? 'image-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={isImageMenuOpen ? 'true' : undefined}
+              onClick={imageMenuOpen}
               component="img"
               sx={{height: 154, width: '100%' }}
-              image="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f70e0f26-7e2c-434d-942e-dd8da57d1f8c/dead3ff-61ce0720-ba66-4ca5-a03d-312d043a6382.png/v1/fill/w_1024,h_724,q_80,strp/giant_flaming_skeleton_by_anime407_dead3ff-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzI0IiwicGF0aCI6IlwvZlwvZjcwZTBmMjYtN2UyYy00MzRkLTk0MmUtZGQ4ZGE1N2QxZjhjXC9kZWFkM2ZmLTYxY2UwNzIwLWJhNjYtNGNhNS1hMDNkLTMxMmQwNDNhNjM4Mi5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.IjIKSk4GeGHFPGgwvnpLl1ryV_zaDxIxHciDxYqgk2A"
+              image={ character.image !== null && character.image !== undefined && character.image !== ""
+                    ? character.image
+                    : "https://media.istockphoto.com/photos/high-contrast-image-of-a-skull-in-a-smoke-cloud-picture-id998888992?k=20&m=998888992&s=170667a&w=0&h=I-LKBqtvGg_guzlvR77MYX0SIw2x2P5ilR6R4cJK9fQ="
+                    }
             />
+            <ImageMenu anchorId="cardImage" anchor={menuAnchor} onClose={imageMenuClose} onSubmit={imageMenuSubmit}/>
           </Grid>
           <Grid item xs={10} sx={{pt:1, pb:1, pl:2, pr: 2}}>
             <Grid container>
