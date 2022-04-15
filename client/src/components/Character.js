@@ -168,7 +168,7 @@ export default function Character(props) {
           <Grid item xs={2}>
             <CardMedia
               component="img"
-              sx={{height: 144, width: '100%' }}
+              sx={{height: 154, width: '100%' }}
               image="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f70e0f26-7e2c-434d-942e-dd8da57d1f8c/dead3ff-61ce0720-ba66-4ca5-a03d-312d043a6382.png/v1/fill/w_1024,h_724,q_80,strp/giant_flaming_skeleton_by_anime407_dead3ff-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzI0IiwicGF0aCI6IlwvZlwvZjcwZTBmMjYtN2UyYy00MzRkLTk0MmUtZGQ4ZGE1N2QxZjhjXC9kZWFkM2ZmLTYxY2UwNzIwLWJhNjYtNGNhNS1hMDNkLTMxMmQwNDNhNjM4Mi5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.IjIKSk4GeGHFPGgwvnpLl1ryV_zaDxIxHciDxYqgk2A"
             />
           </Grid>
