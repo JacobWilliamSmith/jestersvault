@@ -167,7 +167,7 @@ export default function Character(props) {
               aria-expanded={isImageMenuOpen ? 'true' : undefined}
               onClick={imageMenuOpen}
               component="img"
-              sx={{height: 154, width: '100%' }}
+              sx={{height: 146, width: '100%' }}
               image={ character.image !== null && character.image !== undefined && character.image !== ""
                     ? character.image
                     : "https://media.istockphoto.com/photos/high-contrast-image-of-a-skull-in-a-smoke-cloud-picture-id998888992?k=20&m=998888992&s=170667a&w=0&h=I-LKBqtvGg_guzlvR77MYX0SIw2x2P5ilR6R4cJK9fQ="
@@ -202,7 +202,7 @@ export default function Character(props) {
                 </Grid>
                 
               </Grid>
-              <Stack direction="row" sx={{mt: 1, width: '100%'}} alignItems="flex-end" spacing={1}>
+              <Stack direction="row" sx={{mt: 0.25, width: '100%'}} alignItems="flex-end" spacing={1}>
                 { ExpandedViewTextField("status", "Status",
                   { startAdornment: ( <InputAdornment position="start"> <StatusIcon /> </InputAdornment> )})
                 }
