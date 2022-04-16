@@ -41,6 +41,13 @@ export const sortCharacters = (orderBy, isAscending) => {
   }
 }
 
+export const dragAndDropCharacter = (characterId, sourceIndex, destinationIndex) => {
+  return {
+    type: 'DRAG_AND_DROP_CHARACTER',
+    payload: {characterId, sourceIndex, destinationIndex}
+  }
+}
+
 export const startEncounter = (characters) => {
   return {
     type: 'START_ENCOUNTER',

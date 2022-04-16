@@ -3,16 +3,23 @@ import { v4 } from 'node-uuid';
 const defaultState = [];
 
 const characterReducer = (state = defaultState, action) => {
+  let new_state = [];
   switch(action.type) {
     case 'CREATE_CHARACTER':
       const emptyCharacter = { id: v4(), name: '', init: '', ac: '', hp: '', status: ''};
-      return [...state, emptyCharacter]
+      return [...state, emptyCharacter];
 
     case 'UPDATE_CHARACTER':
-      const new_state = [...state]
-      const index = new_state.findIndex(c => c.id === action.payload.id)
+      new_state = [...state];
+      const index = new_state.findIndex(c => c.id === action.payload.id);
       Object.entries(action.payload).forEach(([key, value]) => { new_state[index][key] = value });
-      return new_state
+      return new_state;
+
+    case 'DRAG_AND_DROP_CHARACTER':
+      new_state = [...state];
+      new_state.splice(action.payload.sourceIndex, 1);
+      new_state.splice(action.payload.destinationIndex, 0, state[action.payload.sourceIndex]);
+      return new_state;
 
     case 'DELETE_CHARACTER':
       return state.filter((c) => c.id !== action.payload.id)

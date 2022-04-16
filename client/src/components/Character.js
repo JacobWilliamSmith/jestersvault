@@ -91,6 +91,7 @@ export default function Character(props) {
                 aria-haspopup="true"
                 aria-expanded={isImageMenuOpen ? 'true' : undefined}
                 onClick={imageMenuOpen}
+                {...props.provided.dragHandleProps}
               >
                 {character.name.charAt(0).toUpperCase()}
               </Avatar>
@@ -123,7 +124,7 @@ export default function Character(props) {
           />
           
           { isRightmost &&
-            <SlideMenu sx={{pb:0.25}} size="medium" onToggleExpand={handleToggleExpand} onDelete={handleDelete} />
+            <SlideMenu sx={{pb:0.25}} provided={props.provided} size="medium" onToggleExpand={handleToggleExpand} onDelete={handleDelete} />
           }
         </Stack>
       </Grid>
@@ -172,6 +173,7 @@ export default function Character(props) {
                     ? character.image
                     : "https://media.istockphoto.com/photos/high-contrast-image-of-a-skull-in-a-smoke-cloud-picture-id998888992?k=20&m=998888992&s=170667a&w=0&h=I-LKBqtvGg_guzlvR77MYX0SIw2x2P5ilR6R4cJK9fQ="
                     }
+              {...props.provided.dragHandleProps}
             />
             <ImageMenu anchorId="cardImage" anchor={menuAnchor} onClose={imageMenuClose} onSubmit={imageMenuSubmit}/>
           </Grid>
@@ -206,7 +208,7 @@ export default function Character(props) {
                 { ExpandedViewTextField("status", "Status",
                   { startAdornment: ( <InputAdornment position="start"> <StatusIcon /> </InputAdornment> )})
                 }
-                <SlideMenu size="small" onToggleExpand={handleToggleExpand} onDelete={handleDelete} />
+                <SlideMenu size="small" provided={props.provided} onToggleExpand={handleToggleExpand} onDelete={handleDelete} />
               </Stack>
             </Grid>
           </Grid>

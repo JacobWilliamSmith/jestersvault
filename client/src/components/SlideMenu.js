@@ -18,7 +18,7 @@ export default function SlideMenu(props) {
 
   return (
     <Stack direction="row" alignItems="flex-end" spacing={1}>
-      <IconButton size={props.size} onClick={ () => { setIsOpen((prev) => !prev); }} >
+      <IconButton size={props.size} {...props.provided.dragHandleProps} onClick={ () => { setIsOpen((prev) => !prev); }} >
         <MoreIcon fontSize={props.size}/>
       </IconButton>
 
@@ -27,10 +27,6 @@ export default function SlideMenu(props) {
 
           <IconButton size={props.size} onClick={ props.onToggleExpand }>
             <ViewIcon fontSize={props.size}/>
-          </IconButton>
-
-          <IconButton size={props.size}>
-            <ReorderIcon fontSize={props.size}/>
           </IconButton>
           
           { isAuthenticated &&

@@ -8,13 +8,28 @@ import Divider from '@mui/material/Divider';
 import Character from './Character';
 import CharacterListHeader from './CharacterListHeader';
 
-import { createCharacter } from '../actions';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import { createCharacter, dragAndDropCharacter } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function CharacterList() {
   const dispatch = useDispatch();
   const characters = useSelector(state => state.characters);
   
+  const onDragEnd = result => {
+    const{ destination, source, draggableId } = result;
+    if(!destination) {
+      return;
+    }
+
+    if(destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+
+    dispatch(dragAndDropCharacter(draggableId, source.index, destination.index));
+  }
+
   function handleCreateCharacter() {
     const createCharacterPromise = () => new Promise((resolve, reject) => {
       dispatch(createCharacter());
@@ -29,12 +44,36 @@ export default function CharacterList() {
   return (
     <Box>
       <CharacterListHeader />
-      { characters.map((c) => (
-        <Box key={c.id} >
-          <Character id={c.id}/>
-          <Divider/>
-        </Box>  
-      ))}
+      <DragDropContext onDragEnd={onDragEnd} >
+        <Droppable droppableId="characterList">
+          { provided => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                { characters.map((c) => (
+                  <Box key={c.id} >
+                    <Draggable draggableId={c.id} index={characters.findIndex(el => c.id === el.id)}>
+                      { provided => (
+                          <div
+                            {...provided.draggableProps}
+                            ref={provided.innerRef}
+                          >
+                            <Character id={c.id} provided={provided}/>
+                          </div>
+                        )
+                      }
+                    </Draggable>
+                    <Divider/>
+                  </Box>  
+                ))}
+                {provided.placeholder}
+              </div>
+            )
+          }
+          
+        </Droppable>
+      </DragDropContext>
       <Box sx={{mb:9, mt: 0.5, ml: 1, mr: 1}}>
         <Button fullWidth onClick={ () => {handleCreateCharacter()} }>
           <Typography>ADD CHARACTER</Typography>
