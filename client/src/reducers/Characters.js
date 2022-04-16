@@ -1,10 +1,6 @@
 import { v4 } from 'node-uuid';
 
-const defaultState = [
-  { id: v4(), name: 'Vikrith, Captain of the Guard', init: '', ac: '20', hp: '115 / 125', status: ''},
-  { id: v4(), name: 'Erydon, Grey Prophet', init: '', ac: '18', hp: '108 / 119', status: ''}
-];
-
+const defaultState = [];
 
 const characterReducer = (state = defaultState, action) => {
   switch(action.type) {
@@ -20,6 +16,9 @@ const characterReducer = (state = defaultState, action) => {
 
     case 'DELETE_CHARACTER':
       return state.filter((c) => c.id !== action.payload.id)
+
+    case 'DELETE_ALL_CHARACTERS':
+      return []
 
     case 'SORT_CHARACTERS':
       return [...state].sort((a,b) => compare(a[action.payload.orderBy], b[action.payload.orderBy], action.payload.isAscending));

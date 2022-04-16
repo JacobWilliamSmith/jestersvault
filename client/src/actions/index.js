@@ -18,6 +18,12 @@ export const deleteCharacter = (id) => {
   }
 }
 
+export const deleteAllCharacters = () => {
+  return {
+    type: 'DELETE_ALL_CHARACTERS'
+  }
+}
+
 export const sortCharacters = (orderBy, isAscending) => {
   const erroneousAction = { type: 'ERROR' }
 
