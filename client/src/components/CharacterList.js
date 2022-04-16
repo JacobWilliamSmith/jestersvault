@@ -64,7 +64,6 @@ export default function CharacterList() {
                         )
                       }
                     </Draggable>
-                    <Divider/>
                   </Box>  
                 ))}
                 {provided.placeholder}
