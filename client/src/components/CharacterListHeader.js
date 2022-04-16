@@ -69,24 +69,24 @@ export default function CharacterListHeader() {
     )
   }
 
-  function CustomHeader(props) {
-    const isLeftmost = props.index === 0;
-    const isRightmost = props.index === tableLayout.length - 1;
+  function CustomHeader(key, index) {
+    const isLeftmost = index === 0;
+    const isRightmost = index === tableLayout.length - 1;
     
     return (
-      <Grid item xs={tableLayout[props.index].width}>
+      <Grid key={key} item xs={tableLayout[index].width}>
         <Stack direction="row" alignItems="flex-end" spacing={1} sx={{pl: isLeftmost ? 6 : 0}}>
           <h3 className="headerTitle">
-            {tableLayout[props.index].name}
+            {tableLayout[index].name}
           </h3>
-          <IconButton size="small" onClick={ () => { handleOrder(props.index) }} >
-            { orderArray[props.index] ===  1 ? <OrderedAscendingIcon  fontSize="small"/>
-            : orderArray[props.index] === -1 ? <OrderedDescendingIcon fontSize="small"/>
-            :                                  <UnorderedIcon         fontSize="small"/>
+          <IconButton size="small" onClick={ () => { handleOrder(index) }} >
+            { orderArray[index] ===  1 ? <OrderedAscendingIcon  fontSize="small"/>
+            : orderArray[index] === -1 ? <OrderedDescendingIcon fontSize="small"/>
+            :                            <UnorderedIcon         fontSize="small"/>
             }
           </IconButton>
 
-          {isRightmost && <CustomSlideMenu/>}
+          {isRightmost && CustomSlideMenu()}
         </Stack>
       </Grid>
     )
@@ -96,7 +96,7 @@ export default function CharacterListHeader() {
     <Box className="ignoreShadow">
       <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
         <Grid container spacing={1}>
-          { tableLayout.map( (column) => <CustomHeader key={column.stat} index={tableLayout.findIndex((i) => (i.stat === column.stat))}/> ) }
+          { tableLayout.map( (column) => CustomHeader(column.stat, tableLayout.findIndex((i) => (i.stat === column.stat))))}
         </Grid>
       </Stack>
       <Divider sx={{ mt: 0.5 }}/>
