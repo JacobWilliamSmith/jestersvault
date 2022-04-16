@@ -65,7 +65,7 @@ export default function AppBarMenu() {
                   </IconButton>
                 </Tooltip>
 
-              : <Tooltip title="Log in">
+              : <Tooltip title="Log In">
                   <IconButton onClick={handleToggleAuth} color="inherit">
                     <LoginIcon />
                   </IconButton>
