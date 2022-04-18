@@ -40,6 +40,7 @@ export default function ImageMenu(props) {
           autoComplete="off"
           fullWidth
           placeholder = "Image URL"
+          autoFocus
         />
 
         <Stack direction = "row" alignItems="flex-end" spacing = {1}>
