@@ -59,7 +59,9 @@ export default function CharacterList() {
                             {...provided.draggableProps}
                             ref={provided.innerRef}
                           >
+                            <Divider />
                             <Character id={c.id} provided={provided}/>
+                            <Divider />
                           </div>
                         )
                       }
@@ -73,6 +75,7 @@ export default function CharacterList() {
           
         </Droppable>
       </DragDropContext>
+      <Divider/>
       <Box sx={{mb:9, mt: 0.5, ml: 1, mr: 1}}>
         <Button fullWidth onClick={ () => {handleCreateCharacter()} }>
           <Typography>ADD CHARACTER</Typography>

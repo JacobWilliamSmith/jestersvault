@@ -9,7 +9,6 @@ import CardMedia from '@mui/material/CardMedia';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
 
 import InitIcon from '@mui/icons-material/Bolt';
 import ACIcon from '@mui/icons-material/Shield';
@@ -220,12 +219,10 @@ export default function Character(props) {
 
   return (
     <div>
-      <Divider/>
       { isCharacterExpanded
         ? ExpandedView()
         : CompressedView()
       }
-      <Divider/>
     </div>
   );
 }
