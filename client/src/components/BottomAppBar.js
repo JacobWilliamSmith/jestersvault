@@ -79,7 +79,7 @@ export default function TurnCounterMenu() {
   function CustomButton(props) {
     return (
       <ImageButton focusRipple style={{ width: props.width }} onClick={props.onClick} >
-        <ImageSrc style={{ opacity:1, backgroundImage: `url(${props.imageUrl})` }} />
+        <ImageSrc/>
         <ImageBackdrop className="MuiImageBackdrop-root" />
         <Image>
           <Typography
@@ -101,12 +101,12 @@ export default function TurnCounterMenu() {
       <AppBar position="fixed" sx={{top: 'auto', bottom: 0, pt: 0.5}}>
           { inEncounter
           ? <Box>
-              <CustomButton title="Previous Turn" width="30%" imageUrl="https://sweeticeandfiresunray.files.wordpress.com/2019/05/ice_magic_by_mari_kyomo.jpg" onClick={() => {(dispatch(previousTurn(characters)))}} />
-              <CustomButton title="End Encounter" width="40%" imageUrl="https://www.themebeta.com/media/cache/728/files/chrome/images/sites/default/files/theme/screenshot/ntp_background_37.png" onClick={() => {(dispatch(endEncounter()))}} />
-              <CustomButton title="Next Turn" width="30%" imageUrl="https://blackcitadelrpg.com/wp-content/uploads/2022/01/Wall-of-Fire-5e.jpg" onClick={() => {(dispatch(nextTurn(characters)))}} />
+              <CustomButton title="Previous Turn" width="30%" onClick={() => {(dispatch(previousTurn(characters)))}} />
+              <CustomButton title="End Encounter" width="40%" onClick={() => {(dispatch(endEncounter()))}} />
+              <CustomButton title="Next Turn" width="30%" onClick={() => {(dispatch(nextTurn(characters)))}} />
             </Box>
           : <Box>
-              <CustomButton title="Start Encounter" width="100%" imageUrl="https://media.istockphoto.com/photos/dark-background-with-defocused-lights-and-dust-particles-picture-id1335968532?b=1&k=20&m=1335968532&s=170667a&w=0&h=zwPhQyB0eCtH0gDe_qGUEw_BnudYHpxSje4iR1UuzWE=" onClick={() => {(dispatch(startEncounter(characters)))}} />
+              <CustomButton title="Start Encounter" width="100%" onClick={() => {(dispatch(startEncounter(characters)))}} />
             </Box>
           }
       </AppBar>
