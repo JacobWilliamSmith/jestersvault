@@ -158,8 +158,11 @@ export default function Character(props) {
 
   function ExpandedView() {
     return (
-      <Card sx={{ display: 'flex', mt:1, mb:1, ml:7, mr:7}}>
-        <Grid container spacing={0}>
+      <Card raised={props.id === activeCharacterId}  sx={{ display: 'flex', mt:1, mb:1, ml:7, mr:7}}>
+        <Grid className={props.id === activeCharacterId ? 'activeCharacter' : null}
+              style={props.id === activeCharacterId ? { borderRadius: "5px", borderStyle: "solid", borderWidth: "thin" } : {}}
+              container
+              spacing={0}>
           <Grid item xs={2}>
             <CardMedia
               id="cardImage"
