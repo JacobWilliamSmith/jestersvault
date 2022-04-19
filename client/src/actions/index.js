@@ -55,9 +55,22 @@ export const startEncounter = (characters) => {
   }
 }
 
-export const advanceTurn = (characters) => {
+export const nextTurn = (characters) => {
   return {
-    type: 'ADVANCE_TURN',
+    type: 'NEXT_TURN',
     payload: {characters}
+  }
+}
+
+export const previousTurn = (characters) => {
+  return {
+    type: 'PREVIOUS_TURN',
+    payload: {characters}
+  }
+}
+
+export const endEncounter = () => {
+  return {
+    type: 'END_ENCOUNTER'
   }
 }
