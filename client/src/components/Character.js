@@ -23,6 +23,7 @@ import ImageMenu from './ImageMenu';
 export default function Character(props) {
   const tableLayout = useSelector(state => state.tableLayout);
   const activeCharacterId = useSelector(state => state.turns.activeCharacterId);
+  const allCharacters = useSelector(state => state.characters);
   const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
   const dispatch = useDispatch();
 
@@ -69,7 +70,7 @@ export default function Character(props) {
   }
 
   const handleDelete = () => {
-    dispatch(deleteCharacter(character.id));
+    dispatch(deleteCharacter(character.id, allCharacters));
   }
 
   function CompressedViewCell(columnIndex) {

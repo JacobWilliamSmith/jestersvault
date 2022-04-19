@@ -11,10 +11,10 @@ export const updateCharacter = (id, args = {}) => {
   }
 }
 
-export const deleteCharacter = (id) => {
+export const deleteCharacter = (id, characters) => {
   return {
     type: 'DELETE_CHARACTER',
-    payload: {id}
+    payload: {id, characters}
   }
 }
 
