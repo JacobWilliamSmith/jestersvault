@@ -1,8 +1,13 @@
 const express = require('express')
 const app = express()
-const config = require('./config')
-
 const cookieParser = require('cookie-parser')
+const cors = require('cors');
+require("dotenv").config();
+
+app.use(cors({
+  origin: process.env.CLIENT_ORIGIN,
+  credentials: true
+}));
 
 app.use(cookieParser())
 app.use(express.json())
@@ -16,6 +21,8 @@ app.use('/user', userRouter);
 const debugRouter = require('./routes/Debug');
 app.use('/debug', debugRouter);
 
-app.listen(config.serverPort, () => {
-    console.log(`Express server running on port ${config.serverPort}`)
+const PORT = process.env.NODE_DOCKER_PORT || 8000;
+
+app.listen(PORT, () => {
+    console.log(`Express server running on port ${PORT}`)
 })

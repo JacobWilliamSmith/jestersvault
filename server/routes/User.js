@@ -4,13 +4,13 @@ const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
 const User = require('../models/User');
-const config = require('../config');
+require("dotenv").config();
 
 const signToken = userID => {
   return JWT.sign({
     iss: 'JestersVault API',
     sub: userID
-  }, config.JWTSecret, {expiresIn: "10d"})
+  }, process.env.JWT_SECRET, {expiresIn: "10d"})
 }
 
 userRouter.post('/register',(req,res)=>{

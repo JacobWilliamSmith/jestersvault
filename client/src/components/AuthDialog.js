@@ -1,4 +1,4 @@
-import {useState, useContext, useRef } from 'react';
+import { useState, useContext, useRef } from 'react';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -16,8 +16,8 @@ import AuthService from '../services/Auth';
 export default function AuthDialog(props) {
   const [tab, setTab] = useState(0);
   const [message, setMessage] = useState(null);
-  const [errors, setErrors] = useState(null);
-  const [showErrors, setShowErrors] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [showErrors, setShowErrors] = useState({});
   const authContext = useContext(AuthContext);
 
   const refLoginUsername = useRef(null);
@@ -38,8 +38,6 @@ export default function AuthDialog(props) {
 
   const onBlur = e => {
     showErrors[e.target.name] = true;
-    console.log(showErrors);
-    console.log(errors);
     setErrors({...errors, [e.target.name]: validateInput(e.target.name)});
   }
 
@@ -154,8 +152,8 @@ export default function AuthDialog(props) {
   const resetLogin = () => {
     emptyTextField(refLoginUsername);
     emptyTextField(refLoginPassword);
-    setErrors(null);
-    setShowErrors(null);
+    setErrors({});
+    setShowErrors({});
   }
 
   const resetRegister = () => {
@@ -244,6 +242,7 @@ export default function AuthDialog(props) {
               <Box sx={{ p: 1 }}>
 
                 <DialogContent>
+                  
                   <TextField inputRef={refRegUsername}
                              name="username"
                              type="text"

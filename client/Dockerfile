@@ -3,6 +3,9 @@ WORKDIR /jestersvault
 COPY ./package.json ./
 RUN npm install --silent
 RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
+RUN mkdir -p node_modules/.cache/.eslintcache && chmod -R 777 node_modules/.cache/.eslintcache
 COPY . .
-EXPOSE 3000
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+EXPOSE $REACT_DOCKER_PORT
 CMD ("npm", "start")
