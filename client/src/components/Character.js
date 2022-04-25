@@ -34,7 +34,6 @@ export default function Character(props) {
   const isImageMenuOpen = Boolean(menuAnchor);
 
   const imageMenuSubmit = (imageUrl) => {
-    console.log(imageUrl)
     setData({...data, ["image"]: imageUrl});
     imageMenuClose();
   }
