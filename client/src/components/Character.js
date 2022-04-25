@@ -95,14 +95,7 @@ export default function Character(props) {
               >
                 {character.name.charAt(0).toUpperCase()}
               </Avatar>
-              <MenuTextfield
-                anchor={menuAnchor}
-                placeholder="Image URL"
-                onClose={imageMenuClose}
-                onSubmit={imageMenuSubmit}
-                closeText="Cancel"
-                submitText="Submit"
-              />
+              
             </div>
           }
   
@@ -183,14 +176,6 @@ export default function Character(props) {
                     }
               {...props.provided.dragHandleProps}
             />
-            <MenuTextfield
-              anchor={menuAnchor}
-              placeholder="Image URL"
-              onClose={imageMenuClose}
-              onSubmit={imageMenuSubmit}
-              closeText="Cancel"
-              submitText="Submit"
-            />
           </Grid>
           <Grid item xs={10} sx={{pt:1, pb:1, pl:2, pr: 2}}>
             <Grid container>
@@ -238,6 +223,14 @@ export default function Character(props) {
         ? ExpandedView()
         : CompressedView()
       }
+      <MenuTextfield
+        anchor={menuAnchor}
+        onClose={imageMenuClose}
+        onSubmit={imageMenuSubmit}
+        placeholder="Image URL"
+        closeText="Cancel"
+        submitText="Submit"
+      />
     </div>
   );
 }
