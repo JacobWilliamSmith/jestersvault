@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema(
@@ -58,8 +57,6 @@ UserSchema.pre('save', function(next) {
         next();
     })
 })
-
-UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 
 UserSchema.methods.comparePassword = function(password, cb) {
     bcrypt.compare(password, this.password, (err, isMatch)=>{
