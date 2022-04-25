@@ -43,6 +43,7 @@ export default function AppBarMenu() {
             Jester's Vault
           </Typography>
           <Stack direction="row" alignItems="flex-end" spacing={1}>
+            
             { isAuthenticated &&
               <Tooltip title="Bookmarked Characters / Games">
                 <IconButton color="inherit">
@@ -50,6 +51,7 @@ export default function AppBarMenu() {
                 </IconButton>
               </Tooltip>
             }
+
             { isAuthenticated
               ? <Tooltip title="Log Out">
                   <IconButton onClick={logout} color="inherit">
