@@ -1,15 +1,6 @@
 const mongoose = require('mongoose')
-var uniqueValidator = require('mongoose-unique-validator');
-var bcrypt = require('bcrypt');
-const Character = require('./Character').schema;
-
-
-const GamePreset = new mongoose.Schema(
-    {
-        name: String,
-        characters: [Character]
-    }
-)
+const uniqueValidator = require('mongoose-unique-validator');
+const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema(
     {
@@ -39,16 +30,18 @@ const UserSchema = new mongoose.Schema(
             required: true,
             default: false
         },
-        characterPresets: {
-            type: [Character],
+        characterPresets: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "CharacterPreset",
             required: true,
             default: []
-        },
-        gamePresets: {
-            type: [GamePreset],
+        }],
+        gamePresets: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "GamePreset",
             required: true,
             default: []
-        }
+        }]
     },
     { timestamps: true },
 )
