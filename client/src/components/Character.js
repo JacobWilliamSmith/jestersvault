@@ -18,7 +18,7 @@ import StatusIcon from '@mui/icons-material/Flare';
 import { deleteCharacter, updateCharacter } from '../actions';
 import '../css/Character.css';
 import SlideMenu from './SlideMenu';
-import ImageMenu from './ImageMenu';
+import MenuTextfield from './MenuTextfield';
 
 export default function Character(props) {
   const tableLayout = useSelector(state => state.tableLayout);
@@ -34,7 +34,9 @@ export default function Character(props) {
   const isImageMenuOpen = Boolean(menuAnchor);
 
   const imageMenuSubmit = (imageUrl) => {
+    console.log(imageUrl)
     setData({...data, ["image"]: imageUrl});
+    imageMenuClose();
   }
 
   const imageMenuOpen = (event) => {
@@ -87,8 +89,6 @@ export default function Character(props) {
               <Avatar
                 variant="rounded"
                 src={character.image}
-                id="avatar"
-                aria-controls={isImageMenuOpen ? 'image-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={isImageMenuOpen ? 'true' : undefined}
                 onClick={imageMenuOpen}
@@ -96,7 +96,14 @@ export default function Character(props) {
               >
                 {character.name.charAt(0).toUpperCase()}
               </Avatar>
-              <ImageMenu anchorId="avatar" anchor={menuAnchor} onClose={imageMenuClose} onSubmit={imageMenuSubmit}/>
+              <MenuTextfield
+                anchor={menuAnchor}
+                placeholder="Image URL"
+                onClose={imageMenuClose}
+                onSubmit={imageMenuSubmit}
+                closeText="Cancel"
+                submitText="Submit"
+              />
             </div>
           }
   
@@ -166,8 +173,6 @@ export default function Character(props) {
               spacing={0}>
           <Grid item xs={2}>
             <CardMedia
-              id="cardImage"
-              aria-controls={isImageMenuOpen ? 'image-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={isImageMenuOpen ? 'true' : undefined}
               onClick={imageMenuOpen}
@@ -179,7 +184,14 @@ export default function Character(props) {
                     }
               {...props.provided.dragHandleProps}
             />
-            <ImageMenu anchorId="cardImage" anchor={menuAnchor} onClose={imageMenuClose} onSubmit={imageMenuSubmit}/>
+            <MenuTextfield
+              anchor={menuAnchor}
+              placeholder="Image URL"
+              onClose={imageMenuClose}
+              onSubmit={imageMenuSubmit}
+              closeText="Cancel"
+              submitText="Submit"
+            />
           </Grid>
           <Grid item xs={10} sx={{pt:1, pb:1, pl:2, pr: 2}}>
             <Grid container>
