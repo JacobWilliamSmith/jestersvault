@@ -6,6 +6,7 @@ const JWT = require('jsonwebtoken');
 const User = require('../models/User');
 const CharacterPreset = require('../models/CharacterPreset');
 const GamePreset = require('../models/GamePreset');
+const mongoose = require('mongoose');
 require("dotenv").config();
 
 const signToken = userID => {
@@ -119,6 +120,66 @@ userRouter.get('/gamePresets',passport.authenticate('jwt',{session: false}),(req
       } else {
         res.status(200).json({gamePresets: document.gamePresets, authenticated: true});
       }
+  });
+});
+
+userRouter.delete('/characterPreset/:id',passport.authenticate('jwt',{session: false}),(req,res)=>{
+  try {
+    mongoose.Types.ObjectId(req.params.id)
+  } catch(e) {
+    res.status(400).json({message: {msgBody: "You do not have a character preset with this ID", msgError: true}});
+    return;
+  }
+  User.findOne({_id: req.user._id, characterPresets: {$all: [mongoose.Types.ObjectId(req.params.id)]}}, (err, user) => {
+    if(err) {
+      res.status(500).json({message: {msgBody: err, msgError: true}});
+    } else if (!user) {
+      res.status(400).json({message: {msgBody: "You do not have a character preset with this ID", msgError: true}});
+    } else {
+      user.update({_id: req.user._id}, {$pull: {'characterPresets': req.params.id}}, (err, document) => {
+        if(err) {
+          res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
+        } else {
+          CharacterPreset.findByIdAndRemove({_id: req.params.id}, (err) => {
+            if(err) {
+              res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
+            } else {
+              res.status(200).json({message: {msgBody: "Successfully deleted character preset", msgError: false}});
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+userRouter.delete('/gamePreset/:id',passport.authenticate('jwt',{session: false}),(req,res)=>{
+  try {
+    mongoose.Types.ObjectId(req.params.id)
+  } catch(e) {
+    res.status(400).json({message: {msgBody: "You do not have a game preset with this ID", msgError: true}});
+    return;
+  }
+  User.findOne({_id: req.user._id, gamePresets: {$all: [mongoose.Types.ObjectId(req.params.id)]}}, (err, user) => {
+    if(err) {
+      res.status(500).json({message: {msgBody: err, msgError: true}});
+    } else if (!user) {
+      res.status(400).json({message: {msgBody: "You do not have a game preset with this ID", msgError: true}});
+    } else {
+      user.update({_id: req.user._id}, {$pull: {'gamePresets': req.params.id}}, (err, document) => {
+        if(err) {
+          res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
+        } else {
+          GamePreset.findByIdAndRemove({_id: req.params.id}, (err) => {
+            if(err) {
+              res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
+            } else {
+              res.status(200).json({message: {msgBody: "Successfully deleted game preset", msgError: false}});
+            }
+          });
+        }
+      });
+    }
   });
 });
 
