@@ -9,7 +9,6 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 
-import SettingsIcon from '@mui/icons-material/Settings';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -51,13 +50,6 @@ export default function AppBarMenu() {
                 </IconButton>
               </Tooltip>
             }
-            
-            <Tooltip title="Settings">
-              <IconButton color="inherit">
-                <SettingsIcon />
-              </IconButton>
-            </Tooltip>
-            
             { isAuthenticated
               ? <Tooltip title="Log Out">
                   <IconButton onClick={logout} color="inherit">
