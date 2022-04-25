@@ -95,7 +95,6 @@ export default function Character(props) {
               >
                 {character.name.charAt(0).toUpperCase()}
               </Avatar>
-              
             </div>
           }
   
