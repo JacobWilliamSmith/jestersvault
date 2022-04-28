@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 export default function Message(props) {
   return (
     <Box>
-        <Snackbar open={props.isOpen}
+        <Snackbar open={true}
                   autoHideDuration={5000}
                   anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                   onClose={props.onClose}>

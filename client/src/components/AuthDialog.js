@@ -131,10 +131,6 @@ export default function AuthDialog(props) {
       }
     })
   }
-
-  const closeMessage = () => {
-    setMessage(null);
-  }
   
   const changeTab = (event, newValue) => {
     if(tab !== newValue) {
@@ -325,7 +321,7 @@ export default function AuthDialog(props) {
             )}
           </div>
         </Box>
-        {message ? <Message isOpen={true} msgBody={message.msgBody} msgError={message.msgError} onClose={closeMessage} /> : null}
+        {message ? <Message msgBody={message.msgBody} msgError={message.msgError} onClose={() => setMessage(null)} /> : null}
       </Dialog>
     </div>
   );
