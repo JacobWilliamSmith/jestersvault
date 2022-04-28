@@ -84,7 +84,6 @@ export default function AuthDialog(props) {
     }
   }
 
-
   const onLogin = e => {
     e.preventDefault();
     AuthService.login({
