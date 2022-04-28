@@ -9,6 +9,12 @@ const characterReducer = (state = defaultState, action) => {
       const emptyCharacter = { id: v4(), name: '', init: '', ac: '', hp: '', status: ''};
       return [...state, emptyCharacter];
 
+    case 'ADD_PRESET_CHARACTER':
+      let newCharacter = action.payload.characterData;
+      newCharacter.id = v4();
+      newCharacter.lastSavedAs = action.payload.name;
+      return [...state, newCharacter];
+
     case 'UPDATE_CHARACTER':
       new_state = [...state];
       const index = new_state.findIndex(c => c.id === action.payload.id);

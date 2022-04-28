@@ -15,6 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import { AuthContext } from '../contexts/Auth';
 import AuthService from '../services/Auth';
+import PresetService from '../services/Presets';
 import AuthDialog from './AuthDialog';
 
 export default function AppBarMenu() {
@@ -22,8 +23,8 @@ export default function AppBarMenu() {
   const {isAuthenticated, setIsAuthenticated, setUser} = useContext(AuthContext);
 
   const logout = () => {
-    AuthService.logout().then(data=>{
-      if(data.success){
+    AuthService.logout().then(data => {
+      if(data.success) {
         setUser(data.user);
         setIsAuthenticated(false);
       }
@@ -33,6 +34,12 @@ export default function AppBarMenu() {
   const handleToggleAuth = () => {
     setIsAuthOpen(!isAuthOpen);
   };
+
+  const handleOpenPresets = () => {
+    PresetService.getCharacterPresets().then(data => {
+      console.log(data);
+    })
+  }
   
   return (
     <Box sx={{ display: "flex", mb:9 }}>
@@ -46,7 +53,7 @@ export default function AppBarMenu() {
             
             { isAuthenticated &&
               <Tooltip title="Bookmarked Characters / Games">
-                <IconButton color="inherit">
+                <IconButton onClick={handleOpenPresets} color="inherit">
                   <BookmarkIcon />
                 </IconButton>
               </Tooltip>

@@ -4,6 +4,13 @@ export const createCharacter = () => {
   }
 }
 
+export const addPresetCharacter = (name, characterData) => {
+  return {
+    type: 'ADD_PRESET_CHARACTER',
+    payload: {name, characterData}
+  }
+}
+
 export const updateCharacter = (id, args = {}) => {
   return {
     type: 'UPDATE_CHARACTER',

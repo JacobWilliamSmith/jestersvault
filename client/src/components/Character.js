@@ -15,7 +15,7 @@ import ACIcon from '@mui/icons-material/Shield';
 import HPIcon from '@mui/icons-material/Favorite';
 import StatusIcon from '@mui/icons-material/Flare';
 
-import { deleteCharacter, updateCharacter } from '../actions';
+import { updateCharacter } from '../actions';
 import '../css/Character.css';
 import SlideMenu from './SlideMenu';
 import MenuTextfield from './MenuTextfield';
@@ -23,7 +23,6 @@ import MenuTextfield from './MenuTextfield';
 export default function Character(props) {
   const tableLayout = useSelector(state => state.tableLayout);
   const activeCharacterId = useSelector(state => state.turns.activeCharacterId);
-  const allCharacters = useSelector(state => state.characters);
   const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
   const dispatch = useDispatch();
 
@@ -68,10 +67,6 @@ export default function Character(props) {
 
   const handleToggleExpand = () => {
     setIsCharacterExpanded(!isCharacterExpanded);
-  }
-
-  const handleDelete = () => {
-    dispatch(deleteCharacter(character.id, allCharacters));
   }
 
   function CompressedViewCell(columnIndex) {
@@ -123,7 +118,7 @@ export default function Character(props) {
           />
           
           { isRightmost &&
-            <SlideMenu sx={{pb:0.25}} provided={props.provided} size="medium" onToggleExpand={handleToggleExpand} onDelete={handleDelete} />
+            <SlideMenu sx={{pb:0.25}} id={props.id} provided={props.provided} size="medium" onToggleExpand={handleToggleExpand} />
           }
         </Stack>
       </Grid>
@@ -207,7 +202,7 @@ export default function Character(props) {
                 { ExpandedViewTextField("status", "Status",
                   { startAdornment: ( <InputAdornment position="start"> <StatusIcon /> </InputAdornment> )})
                 }
-                <SlideMenu size="small" provided={props.provided} onToggleExpand={handleToggleExpand} onDelete={handleDelete} />
+                <SlideMenu size="small" id={props.id} provided={props.provided} onToggleExpand={handleToggleExpand} />
               </Stack>
             </Grid>
           </Grid>
