@@ -8,9 +8,9 @@ const CharacterPresetSchema = new mongoose.Schema(
       default: "Unnamed Character"
     },
     characterData: {
-      type: String,
+      type: Object,
       required: true,
-      default: "{}"
+      default: {}
     }
   }
 )

@@ -8,9 +8,9 @@ const GamePresetSchema = new mongoose.Schema(
       default: "Unnamed Game"
     },
     gameData: {
-      type: String,
+      type: [Object],
       required: true,
-      default: "[]"
+      default: []
     }
   }
 )
