@@ -9,7 +9,6 @@ debugRouter.get('/users', (req,res)=> {
     } else {
       res.status(200).json({users: document})
     }
-    
   })
 })
 
