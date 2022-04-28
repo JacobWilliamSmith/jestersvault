@@ -1,4 +1,5 @@
-FROM node:17-slim
+FROM alpine:latest
+RUN apk add --update nodejs && apk add --update npm
 WORKDIR /jestersvault
 COPY ./package.json ./
 RUN npm install --silent
