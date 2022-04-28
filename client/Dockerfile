@@ -2,8 +2,6 @@ FROM node:17-slim
 WORKDIR /jestersvault
 COPY ./package.json ./
 RUN npm install --silent
-RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
-RUN mkdir -p node_modules/.cache/.eslintcache && chmod -R 777 node_modules/.cache/.eslintcache
 COPY . .
 ARG REACT_APP_API_BASE_URL
 ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
