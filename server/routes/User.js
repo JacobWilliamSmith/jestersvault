@@ -110,12 +110,16 @@ userRouter.delete('/characterPreset/:id',passport.authenticate('jwt',{session: f
   if(req.user.characterPresets.findIndex(preset => preset._id == req.params.id) === -1) {
     res.status(400).json({message: {msgBody: "You do not have a character preset with this ID", msgError: true}});
   } else {
-    User.updateOne({'_id': req.user._id}, {$pull: {characterPresets: {_id: req.params.id}}}, (err, user) => {
-      if(err) {
-        res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
-      } else {
-        res.status(200).json({message: {msgBody: "Successfully deleted character preset", msgError: false}});
-      }
+    User.findOneAndUpdate(
+      {'_id': req.user._id},
+      {$pull: {characterPresets: {_id: req.params.id}}},
+      { returnOriginal: false },
+      (err, user) => {
+        if(err) {
+          res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
+        } else {
+          res.status(200).json({characterPresets: user.characterPresets, message: {msgBody: "Successfully deleted character preset", msgError: false}});
+        }
     });
   }
 });
@@ -124,12 +128,16 @@ userRouter.delete('/gamePreset/:id',passport.authenticate('jwt',{session: false}
   if(req.user.gamePresets.findIndex(preset => preset._id == req.params.id) === -1) {
     res.status(400).json({message: {msgBody: "You do not have a game preset with this ID", msgError: true}});
   } else {
-    User.updateOne({'_id': req.user._id}, {$pull: {gamePresets: {_id: req.params.id}}}, (err, user) => {
-      if(err) {
-        res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
-      } else {
-        res.status(200).json({message: {msgBody: "Successfully deleted game preset", msgError: false}});
-      }
+    User.findOneAndUpdate(
+      {'_id': req.user._id},
+      {$pull: {gamePresets: {_id: req.params.id}}},
+      { returnOriginal: false },
+      (err, user) => {
+        if(err) {
+          res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
+        } else {
+          res.status(200).json({gamePresets: user.gamePresets, message: {msgBody: "Successfully deleted game preset", msgError: false}});
+        }
     });
   }
 });

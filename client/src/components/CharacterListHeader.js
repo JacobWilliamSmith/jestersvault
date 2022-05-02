@@ -1,36 +1,79 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useContext } from 'react';
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import '../css/CharacterListHeader.css';
-
 import Slide from '@mui/material/Slide';
-
-import MoreIcon from '@mui/icons-material/MoreVert';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SaveIcon from '@mui/icons-material/BookmarkAdd';
-
-import { AuthContext } from '../contexts/Auth';
-
-import { sortCharacters } from '../actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, useContext } from 'react';
-
 import IconButton from '@mui/material/IconButton';
 
 import UnorderedIcon from '@mui/icons-material/UnfoldMore';
 import OrderedAscendingIcon from '@mui/icons-material/KeyboardArrowUp';
 import OrderedDescendingIcon from '@mui/icons-material/KeyboardArrowDown';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/BookmarkAdd';
+
+import '../css/CharacterListHeader.css';
 
 import { deleteAllCharacters } from "../actions";
+import { sortCharacters } from '../actions';
+import { AuthContext } from '../contexts/Auth';
+import { PresetContext } from '../contexts/Presets';
+import PresetService from '../services/Presets';
+
+import Message from './Message';
+import MenuTextfield from './MenuTextfield';
 
 export default function CharacterListHeader() {
   const [orderArray, setOrderArray] = useState([0,0,0,0,0]);
   const dispatch = useDispatch();
   const tableLayout = useSelector(state => state.tableLayout);
+  const [presetMenuAnchor, setPresetMenuAnchor] = useState(null);
+  const [isOverwritingPreset, setIsOverwritingPreset] = useState(null);
+  const [message, setMessage] = useState(null);
+  const game = useSelector(state => state.characters);
 
   const [isSlideMenuOpen, setIsSlideMenuOpen] = useState(false);
   const {isAuthenticated} = useContext(AuthContext);
+  const {gamePresets, setGamePresets} = useContext(PresetContext);
+
+  const presetMenuSubmit = (presetName) => {
+    if(presetName === undefined || presetName === null || presetName === "") {
+      presetName = "Unnamed Game";
+    }
+    PresetService.addGamePreset(presetName, game)
+      .then(data => {
+        if(!data.message.msgError) {
+          presetMenuClose();
+          setMessage({msgBody: "Saved " + presetName, msgError: false});
+          setGamePresets(data.gamePresets);
+        } else {
+          setMessage({msgBody: "An error occurred", msgError: true});
+        }
+      })
+      .catch(data => {
+        setMessage({msgBody: "An error occurred", msgError: true});
+      });
+  }
+
+  const presetMenuOpen = (event) => {
+    onPresetMenuChange("");
+    setPresetMenuAnchor(event.currentTarget);
+  };
+
+  const presetMenuClose = () => {
+    setPresetMenuAnchor(null);
+    setIsOverwritingPreset(null);
+  }
+
+  const onPresetMenuChange = (presetName) => {
+    if(presetName === undefined || presetName === null || presetName === "") { presetName = "Unnamed Game"; }
+    let isOverwriting = false;
+    gamePresets.forEach(p => { if (presetName === p.name) { return isOverwriting = true; }});
+    setIsOverwritingPreset(isOverwriting);
+  }
 
   function handleOrder(index) {
     let newOrderArray = [0,0,0,0,0]
@@ -54,7 +97,7 @@ export default function CharacterListHeader() {
           <Stack direction="row" alignItems="flex-end" spacing={1}>
             
             { isAuthenticated &&
-              <IconButton size="small">
+              <IconButton onClick={presetMenuOpen} size="small">
                 <SaveIcon fontSize="small"/>
               </IconButton>
             }
@@ -93,13 +136,26 @@ export default function CharacterListHeader() {
   }
   
   return (
-    <Box className="ignoreShadow">
-      <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
-        <Grid container spacing={1}>
-          { tableLayout.map( (column) => CustomHeader(column.stat, tableLayout.findIndex((i) => (i.stat === column.stat))))}
-        </Grid>
-      </Stack>
-      <Divider sx={{ mt: 0.5 }}/>
+    <Box>
+      <Box className="ignoreShadow">
+        <Stack direction="row" alignItems="bottom" spacing={1} sx={{ ml:1, mr:1 }}>
+          <Grid container spacing={1}>
+            { tableLayout.map( (column) => CustomHeader(column.stat, tableLayout.findIndex((i) => (i.stat === column.stat))))}
+          </Grid>
+        </Stack>
+        <Divider sx={{ mt: 0.5 }}/>
+      </Box>
+      <MenuTextfield
+        anchor={presetMenuAnchor}
+        onClose={presetMenuClose}
+        onSubmit={presetMenuSubmit}
+        onChange={onPresetMenuChange}
+        placeholder="Preset Name"
+        closeText="Cancel"
+        submitColor={isOverwritingPreset ? "info" : "success"}
+        submitText={ isOverwritingPreset ? "Overwrite" : "Save" }
+      />
+      {message ? <Message msgBody={message.msgBody} msgError={message.msgError} onClose={() => setMessage(null)} /> : null}
     </Box>
   )
 }

@@ -13,11 +13,12 @@ export default ({children}) => {
     PresetService.getCharacterPresets()
       .then(data => { setCharacterPresets(data !== undefined ? data : []); })
       .catch(() => { setCharacterPresets([]); })
-  },[authContext.isAuthenticated]);
 
-  useEffect(() => {
-    console.log(characterPresets);
-  },[characterPresets]);
+    PresetService.getGamePresets()
+      .then(data => { setGamePresets(data !== undefined ? data : []); })
+      .catch(() => { setGamePresets([]); })
+      
+  }, [authContext.isAuthenticated]);
 
   return (
     <PresetContext.Provider value={{characterPresets, setCharacterPresets, gamePresets, setGamePresets}}>

@@ -13,16 +13,24 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+import PresetMenu from './PresetMenu';
+
 import { AuthContext } from '../contexts/Auth';
-import { PresetContext } from '../contexts/Presets';
 import AuthService from '../services/Auth';
-import PresetService from '../services/Presets';
 import AuthDialog from './AuthDialog';
 
 export default function AppBarMenu() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const {isAuthenticated, setIsAuthenticated, setUser} = useContext(AuthContext);
-  const {characterPresets} = useContext(PresetContext);
+  const [presetMenuAnchor, setPresetMenuAnchor] = useState(null);
+
+  const openPresetMenu = (event) => {
+    setPresetMenuAnchor(event.currentTarget);
+  }
+
+  const closePresetMenu = () => {
+    setPresetMenuAnchor(null);
+  }
 
   const logout = () => {
     AuthService.logout().then(data => {
@@ -36,47 +44,47 @@ export default function AppBarMenu() {
   const handleToggleAuth = () => {
     setIsAuthOpen(!isAuthOpen);
   };
-
-  const handleOpenPresets = () => {
-    console.log(characterPresets);
-  }
   
   return (
-    <Box sx={{ display: "flex", mb:9 }}>
-      <CssBaseline />
-      <AppBar position="fixed">
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Jester's Vault
-          </Typography>
-          <Stack direction="row" alignItems="flex-end" spacing={1}>
-            
-            { isAuthenticated &&
-              <Tooltip title="Bookmarked Characters / Games">
-                <IconButton onClick={handleOpenPresets} color="inherit">
-                  <BookmarkIcon />
-                </IconButton>
-              </Tooltip>
-            }
-
-            { isAuthenticated
-              ? <Tooltip title="Log Out">
-                  <IconButton onClick={logout} color="inherit">
-                    <LogoutIcon />
+    <Box>
+      <Box sx={{ display: "flex", mb:9 }}>
+        <CssBaseline />
+        <AppBar position="fixed">
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+              Jester's Vault
+            </Typography>
+            <Stack direction="row" alignItems="flex-end" spacing={1}>
+              
+              { isAuthenticated &&
+                <Tooltip title="Bookmarked Characters / Games">
+                  <IconButton onClick={openPresetMenu} color="inherit">
+                    <BookmarkIcon />
                   </IconButton>
                 </Tooltip>
+              }
 
-              : <Tooltip title="Log In">
-                  <IconButton onClick={handleToggleAuth} color="inherit">
-                    <LoginIcon />
-                  </IconButton>
-                </Tooltip>
-            }
+              { isAuthenticated
+                ? <Tooltip title="Log Out">
+                    <IconButton onClick={logout} color="inherit">
+                      <LogoutIcon />
+                    </IconButton>
+                  </Tooltip>
 
-          </Stack>
-        </Toolbar>
-      </AppBar>
-      <AuthDialog isOpen={isAuthOpen} onClose={handleToggleAuth} />
+                : <Tooltip title="Log In">
+                    <IconButton onClick={handleToggleAuth} color="inherit">
+                      <LoginIcon />
+                    </IconButton>
+                  </Tooltip>
+              }
+
+            </Stack>
+          </Toolbar>
+        </AppBar>
+        <AuthDialog isOpen={isAuthOpen} onClose={handleToggleAuth} />
+      </Box>
+      <PresetMenu anchor={presetMenuAnchor} onClose={closePresetMenu} isOpen={Boolean(presetMenuAnchor)} />
     </Box>
+    
   )
 }
