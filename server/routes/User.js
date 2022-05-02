@@ -76,7 +76,7 @@ userRouter.post('/characterPreset', passport.authenticate('jwt',{session: false}
     if(err) {
       res.status(500).json({message: {msgBody: "Error has occurred", msgError: true}});
     } else {
-      res.status(200).json({message: {msgBody: "Successfully updated character presets", msgError: false}});
+      res.status(200).json({characterPresets: req.user.characterPresets, message: {msgBody: "Successfully updated character presets", msgError: false}});
     }
   });
 });
@@ -93,7 +93,7 @@ userRouter.post('/gamePreset', passport.authenticate('jwt',{session: false}),(re
     if(err) {
       res.status(500).json({message: {msgBody: "Error has occurred", msgError: true}});
     } else {
-      res.status(200).json({message: {msgBody: "Successfully updated game presets", msgError: false}});
+      res.status(200).json({gamePresets: req.user.gamePresets, message: {msgBody: "Successfully updated game presets", msgError: false}});
     }
   });
 });

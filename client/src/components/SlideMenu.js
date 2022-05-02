@@ -16,6 +16,7 @@ import Message from './Message';
 
 import { updateCharacter, deleteCharacter } from '../actions';
 import { AuthContext } from '../contexts/Auth';
+import { PresetContext } from '../contexts/Presets';
 import PresetService from '../services/Presets';
 
 export default function SlideMenu(props) {
@@ -24,6 +25,7 @@ export default function SlideMenu(props) {
   const [isOverwritingPreset, setIsOverwritingPreset] = useState(null);
   const [message, setMessage] = useState(null);
   const {isAuthenticated} = useContext(AuthContext);
+  const {characterPresets, setCharacterPresets} = useContext(PresetContext);
   const allCharacters = useSelector(state => state.characters);
   const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
   const dispatch = useDispatch();
@@ -35,9 +37,10 @@ export default function SlideMenu(props) {
     PresetService.addCharacterPreset(presetName, character)
       .then(data => {
         if(!data.message.msgError) {
-          dispatch(updateCharacter(props.id, {lastSavedAs: presetName}));
-          setMessage({msgBody: "Saved " + presetName, msgError: false});
           presetMenuClose();
+          setMessage({msgBody: "Saved " + presetName, msgError: false});
+          setCharacterPresets(data.characterPresets);
+          dispatch(updateCharacter(props.id, {lastSavedAs: presetName}));
         } else {
           setMessage({msgBody: "An error occurred", msgError: true});
         }
@@ -62,17 +65,10 @@ export default function SlideMenu(props) {
   }
 
   const onPresetMenuChange = (presetName) => {
-    if(presetName === undefined || presetName === null || presetName === "") {
-      presetName = "Unnamed Character";
-    }
-    // TODO: MAKE PRESET CHARACTER REDUCER, THIS IS WILDLY INEFFICIENT
-    PresetService.getCharacterPresets().then(data => {
-      let isOverwriting = false;
-      data.forEach(element => {
-        if(presetName === element.name) { return isOverwriting = true; }
-      });
-      setIsOverwritingPreset(isOverwriting);
-    });
+    if(presetName === undefined || presetName === null || presetName === "") { presetName = "Unnamed Character"; }
+    let isOverwriting = false;
+    characterPresets.forEach(p => { if (presetName === p.name) { return isOverwriting = true; }});
+    setIsOverwritingPreset(isOverwriting);
   }
 
   return (

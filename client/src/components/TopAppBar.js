@@ -14,6 +14,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { AuthContext } from '../contexts/Auth';
+import { PresetContext } from '../contexts/Presets';
 import AuthService from '../services/Auth';
 import PresetService from '../services/Presets';
 import AuthDialog from './AuthDialog';
@@ -21,6 +22,7 @@ import AuthDialog from './AuthDialog';
 export default function AppBarMenu() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const {isAuthenticated, setIsAuthenticated, setUser} = useContext(AuthContext);
+  const {characterPresets} = useContext(PresetContext);
 
   const logout = () => {
     AuthService.logout().then(data => {
@@ -36,9 +38,7 @@ export default function AppBarMenu() {
   };
 
   const handleOpenPresets = () => {
-    PresetService.getCharacterPresets().then(data => {
-      console.log(data);
-    })
+    console.log(characterPresets);
   }
   
   return (

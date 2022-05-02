@@ -54,10 +54,6 @@ export default function ImageMenu(props) {
             </Grid>
           </Grid>
 
-          
-
-          
-
         </Stack>
       </Stack>
     </Menu>

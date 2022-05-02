@@ -4,7 +4,7 @@ import App from './components/App';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers';
-import AuthProvider from './contexts/Auth';
+import RootProvider from './contexts';
 import throttle from 'lodash/throttle';
 
 import { loadState, saveState } from './localStorage';
@@ -25,12 +25,12 @@ store.subscribe(throttle(() => {
 }, 1000));
 
 ReactDOM.render(
-  <AuthProvider>
+  <RootProvider>
     <Provider store={store}>
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </Provider>
-  </AuthProvider>,
+  </RootProvider>,
   document.getElementById('root')
 );
