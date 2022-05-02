@@ -4,10 +4,17 @@ export const createCharacter = () => {
   }
 }
 
-export const addPresetCharacter = (name, characterData) => {
+export const addPresetCharacter = (characterData) => {
   return {
     type: 'ADD_PRESET_CHARACTER',
-    payload: {name, characterData}
+    payload: {characterData}
+  }
+}
+
+export const addPresetGame = (gameData) => {
+  return {
+    type: 'ADD_PRESET_GAME',
+    payload: {gameData}
   }
 }
 

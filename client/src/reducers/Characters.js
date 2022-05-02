@@ -10,10 +10,14 @@ const characterReducer = (state = defaultState, action) => {
       return [...state, emptyCharacter];
 
     case 'ADD_PRESET_CHARACTER':
-      let newCharacter = action.payload.characterData;
+      let newCharacter = {...action.payload.characterData};
       newCharacter.id = v4();
-      newCharacter.lastSavedAs = action.payload.name;
       return [...state, newCharacter];
+
+    case 'ADD_PRESET_GAME':
+    let newCharacters = [...action.payload.gameData];  
+    newCharacters.forEach(character => { character.id = v4(); });
+    return state.concat(newCharacters);
 
     case 'UPDATE_CHARACTER':
       new_state = [...state];
