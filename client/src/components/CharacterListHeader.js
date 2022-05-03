@@ -33,7 +33,7 @@ export default function CharacterListHeader() {
   const [presetMenuAnchor, setPresetMenuAnchor] = useState(null);
   const [isOverwritingPreset, setIsOverwritingPreset] = useState(null);
   const [message, setMessage] = useState(null);
-  const game = useSelector(state => state.characters);
+  const game = useSelector(state => state.characters.characterList);
 
   const [isSlideMenuOpen, setIsSlideMenuOpen] = useState(false);
   const {isAuthenticated} = useContext(AuthContext);

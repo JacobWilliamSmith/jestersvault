@@ -26,8 +26,7 @@ export default function SlideMenu(props) {
   const [message, setMessage] = useState(null);
   const {isAuthenticated} = useContext(AuthContext);
   const {characterPresets, setCharacterPresets} = useContext(PresetContext);
-  const allCharacters = useSelector(state => state.characters);
-  const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
+  const character = useSelector(state => state.characters.characterList[state.characters.characterList.findIndex(c => c.id === props.id)]);
   const dispatch = useDispatch();
   
   const presetMenuSubmit = (presetName) => {
@@ -61,7 +60,7 @@ export default function SlideMenu(props) {
   }
 
   const onDelete = () => {
-    dispatch(deleteCharacter(character.id, allCharacters));
+    dispatch(deleteCharacter(character.id));
   }
 
   const onPresetMenuChange = (presetName) => {

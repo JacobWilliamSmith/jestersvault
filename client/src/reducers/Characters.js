@@ -1,44 +1,83 @@
 import { v4 } from 'node-uuid';
 
-const defaultState = [];
+const defaultState = {characterList: [], activeCharacterId: null};
 
 const characterReducer = (state = defaultState, action) => {
-  let new_state = [];
+  let newCharacterList = [];
+  let activeCharacterIndex = undefined;
+
   switch(action.type) {
     case 'CREATE_CHARACTER':
       const emptyCharacter = { id: v4(), name: '', init: '', ac: '', hp: '', status: ''};
-      return [...state, emptyCharacter];
+      return {...state, characterList: [...state.characterList, emptyCharacter]};
 
     case 'ADD_PRESET_CHARACTER':
       let newCharacter = {...action.payload.characterData};
       newCharacter.id = v4();
-      return [...state, newCharacter];
+      return {...state, characterList: [...state.characterList, newCharacter]};
 
     case 'ADD_PRESET_GAME':
-    let newCharacters = [...action.payload.gameData];  
-    newCharacters.forEach(character => { character.id = v4(); });
-    return state.concat(newCharacters);
+      let newCharacters = new Array(action.payload.gameData.length);
+      for(let i = 0; i < action.payload.gameData.length; i++) {
+        newCharacters[i] = {...action.payload.gameData[i], id: v4()}
+      }
+      return {...state, characterList: state.characterList.concat(newCharacters)};
 
     case 'UPDATE_CHARACTER':
-      new_state = [...state];
-      const index = new_state.findIndex(c => c.id === action.payload.id);
-      Object.entries(action.payload).forEach(([key, value]) => { new_state[index][key] = value });
-      return new_state;
+      newCharacterList = [...state.characterList];
+      const index = newCharacterList.findIndex(c => c.id === action.payload.id);
+      Object.entries(action.payload).forEach(([key, value]) => { newCharacterList[index][key] = value });
+      return {...state, characterList: newCharacterList};
 
     case 'DRAG_AND_DROP_CHARACTER':
-      new_state = [...state];
-      new_state.splice(action.payload.sourceIndex, 1);
-      new_state.splice(action.payload.destinationIndex, 0, state[action.payload.sourceIndex]);
-      return new_state;
+      newCharacterList = [...state.characterList];
+      newCharacterList.splice(action.payload.sourceIndex, 1);
+      newCharacterList.splice(action.payload.destinationIndex, 0, state.characterList[action.payload.sourceIndex]);
+      return {...state, characterList: newCharacterList};
 
     case 'DELETE_CHARACTER':
-      return state.filter((c) => c.id !== action.payload.id)
+      if(state.characterList.length <= 1) {
+        return { ...state, characterList: [], activeCharacterId: null };
+      }
+
+      if(action.payload.id !== state.activeCharacterId) {
+        return {...state, characterList: state.characterList.filter((c) => c.id !== action.payload.id)};
+      }
+
+      activeCharacterIndex = state.characterList.findIndex((c)=>c.id === state.activeCharacterId)
+      if(activeCharacterIndex === -1) {
+        return {...state, characterList: state.characterList.filter((c) => c.id !== action.payload.id)};
+      }
+
+      return { ...state,
+        activeCharacterId: state.characterList[(activeCharacterIndex+1) % state.characterList.length].id,
+        characterList: state.characterList.filter((c) => c.id !== action.payload.id)
+      };
 
     case 'DELETE_ALL_CHARACTERS':
-      return []
+      return {...state, characterList: [], activeCharacterId: null}
 
     case 'SORT_CHARACTERS':
-      return [...state].sort((a,b) => compare(a[action.payload.orderBy], b[action.payload.orderBy], action.payload.isAscending));
+      return {...state, characterList: [...state.characterList].sort((a,b) => compare(a[action.payload.orderBy], b[action.payload.orderBy], action.payload.isAscending))};
+
+    case 'START_ENCOUNTER':
+      if(state.characterList.length === 0) { return { ...state, activeCharacterId: null }; }
+      return { ...state, activeCharacterId: state.characterList[0].id };
+
+    case 'NEXT_TURN':
+      activeCharacterIndex = state.characterList.findIndex((c)=>c.id === state.activeCharacterId)
+      if(state.characterList.length === 0) { return { ...state, activeCharacterId: null }; }
+      if(activeCharacterIndex === -1) { return { ...state, activeCharacterId: null }; }
+      return { ...state, activeCharacterId: state.characterList[(activeCharacterIndex+1) % state.characterList.length].id }
+
+    case 'PREVIOUS_TURN':
+      activeCharacterIndex = state.characterList.findIndex((c)=>c.id === state.activeCharacterId)
+      if(state.characterList.length === 0) { return { ...state, activeCharacterId: null }; }
+      if(activeCharacterIndex === -1) { return { ...state, activeCharacterId: null }; }
+      return { ...state, activeCharacterId: state.characterList[(state.characterList.length + activeCharacterIndex - 1) % state.characterList.length].id }
+
+    case 'END_ENCOUNTER':
+      return { ...state, activeCharacterId: null };
 
     default:
       return state

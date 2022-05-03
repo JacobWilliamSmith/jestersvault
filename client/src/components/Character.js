@@ -22,8 +22,8 @@ import MenuTextfield from './MenuTextfield';
 
 export default function Character(props) {
   const tableLayout = useSelector(state => state.tableLayout);
-  const activeCharacterId = useSelector(state => state.turns.activeCharacterId);
-  const character = useSelector(state => state.characters[state.characters.findIndex(c => c.id === props.id)]);
+  const activeCharacterId = useSelector(state => state.characters.activeCharacterId);
+  const character = useSelector(state => state.characters.characterList[state.characters.characterList.findIndex(c => c.id === props.id)]);
   const dispatch = useDispatch();
 
   const [data, setData] = useState(character);

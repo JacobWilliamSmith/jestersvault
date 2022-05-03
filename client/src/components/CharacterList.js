@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function CharacterList() {
   const dispatch = useDispatch();
-  const characters = useSelector(state => state.characters);
+  const characters = useSelector(state => state.characters.characterList);
   
   const onDragEnd = result => {
     const{ destination, source, draggableId } = result;

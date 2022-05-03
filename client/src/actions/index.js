@@ -25,10 +25,10 @@ export const updateCharacter = (id, args = {}) => {
   }
 }
 
-export const deleteCharacter = (id, characters) => {
+export const deleteCharacter = (id) => {
   return {
     type: 'DELETE_CHARACTER',
-    payload: {id, characters}
+    payload: {id}
   }
 }
 
@@ -62,24 +62,21 @@ export const dragAndDropCharacter = (characterId, sourceIndex, destinationIndex)
   }
 }
 
-export const startEncounter = (characters) => {
+export const startEncounter = () => {
   return {
-    type: 'START_ENCOUNTER',
-    payload: {characters}
+    type: 'START_ENCOUNTER'
   }
 }
 
-export const nextTurn = (characters) => {
+export const nextTurn = () => {
   return {
-    type: 'NEXT_TURN',
-    payload: {characters}
+    type: 'NEXT_TURN'
   }
 }
 
-export const previousTurn = (characters) => {
+export const previousTurn = () => {
   return {
-    type: 'PREVIOUS_TURN',
-    payload: {characters}
+    type: 'PREVIOUS_TURN'
   }
 }
 

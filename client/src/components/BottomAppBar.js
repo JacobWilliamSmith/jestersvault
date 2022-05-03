@@ -9,8 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function TurnCounterMenu() {
   const dispatch = useDispatch();
-  const characters = useSelector(state => state.characters);
-  const inEncounter = useSelector(state => (state.turns.activeCharacterId !== null));
+  const inEncounter = useSelector(state => (state.characters.activeCharacterId !== null));
   
   const ImageButton = styled(ButtonBase)(({ theme }) => ({
     position: 'relative',
@@ -101,12 +100,12 @@ export default function TurnCounterMenu() {
       <AppBar position="fixed" sx={{top: 'auto', bottom: 0, pt: 0.5}}>
           { inEncounter
           ? <Box>
-              <CustomButton title="Previous Turn" width="30%" onClick={() => {(dispatch(previousTurn(characters)))}} />
+              <CustomButton title="Previous Turn" width="30%" onClick={() => {(dispatch(previousTurn()))}} />
               <CustomButton title="End Encounter" width="40%" onClick={() => {(dispatch(endEncounter()))}} />
-              <CustomButton title="Next Turn" width="30%" onClick={() => {(dispatch(nextTurn(characters)))}} />
+              <CustomButton title="Next Turn" width="30%" onClick={() => {(dispatch(nextTurn()))}} />
             </Box>
           : <Box>
-              <CustomButton title="Start Encounter" width="100%" onClick={() => {(dispatch(startEncounter(characters)))}} />
+              <CustomButton title="Start Encounter" width="100%" onClick={() => {(dispatch(startEncounter()))}} />
             </Box>
           }
       </AppBar>
