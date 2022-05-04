@@ -21,7 +21,7 @@ app.use('/user', userRouter);
 const debugRouter = require('./routes/Debug');
 app.use('/debug', debugRouter);
 
-const PORT = process.env.NODE_DOCKER_PORT || 8000;
+const PORT = process.env.NODE_DOCKER_PORT;
 
 app.listen(PORT, () => {
     console.log(`Express server running on port ${PORT}`)
