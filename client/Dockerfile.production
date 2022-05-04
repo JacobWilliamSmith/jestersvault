@@ -1,0 +1,18 @@
+# Stage 1: Build React App
+FROM alpine:latest as build-stage
+RUN apk add --update nodejs && apk add --update npm
+WORKDIR /jestersvault
+COPY package.json .
+RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
+RUN mkdir -p node_modules/.cache/.eslintcache && chmod -R 777 node_modules/.cache/.eslintcache
+RUN npm install --silent
+COPY . .
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+RUN npm run production
+
+# Stage 2: Deploy React App
+FROM nginx:1.17.0-alpine
+COPY --from=build-stage /jestersvault/build /usr/share/nginx/html
+EXPOSE $REACT_DOCKER_PORT
+CMD nginx -g 'daemon off;'

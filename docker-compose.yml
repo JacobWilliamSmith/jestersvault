@@ -5,12 +5,11 @@ services:
     image: react-app
     build:
       context: ./client
-      dockerfile: Dockerfile
+      dockerfile: $DOCKERFILE_NAME
       args:
         - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
     container_name: client
     stdin_open: true
-    command: npm start
     volumes:
       - /jestersvault/node_modules
       - ./client:/jestersvault
@@ -19,7 +18,7 @@ services:
     ports: 
       - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
     networks:
-      - jestersvault
+      - frontend
     depends_on:
       - server
 
@@ -28,9 +27,8 @@ services:
     env_file: ./.env
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: $DOCKERFILE_NAME
     container_name: server
-    command: npm start
     volumes:
       - /jestersvault/node_modules
       - ./server:/jestersvault
@@ -46,7 +44,8 @@ services:
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     networks:
-      - jestersvault
+      - frontend
+      - backend
     depends_on:
       - database
 
@@ -60,14 +59,16 @@ services:
     ports:
       - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
     networks:
-      - jestersvault
+      - backend
     volumes:
       - mongo-data:/data/db
     logging:
       driver: 'none'
 
 networks:
-  jestersvault:
+  frontend:
+    driver: bridge
+  backend:
     driver: bridge
 volumes:
   mongo-data:
