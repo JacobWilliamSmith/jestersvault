@@ -1,7 +1,9 @@
-FROM alpine:latest
-RUN apk add --update nodejs && apk add --update npm
+FROM node:18.1.0-alpine3.15
 WORKDIR /jestersvault
 COPY package.json .
-RUN npm install --silent
+RUN apk --no-cache --quiet add --virtual native-deps \
+	g++ gcc libgcc libstdc++ linux-headers make python3 && \
+	npm install --quiet node-gyp -g
+RUN npm install --only=production --silent
 COPY . .
 CMD npm run production
