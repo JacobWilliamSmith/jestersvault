@@ -1,10 +1,10 @@
 # Stage 1: Build React App
 FROM node:18.1.0-alpine3.15 as build-stage
-WORKDIR /jestersvault
-COPY package.json .
 RUN apk --no-cache --quiet add --virtual native-deps \
 	g++ gcc libgcc libstdc++ linux-headers make python3 && \
 	npm install --quiet node-gyp -g
+WORKDIR /jestersvault
+COPY package.json .
 RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
 RUN mkdir -p node_modules/.cache/.eslintcache && chmod -R 777 node_modules/.cache/.eslintcache
 RUN npm install --only=production --silent
