@@ -4,6 +4,7 @@ RUN apk --no-cache --quiet add --virtual native-deps \
 	npm install --quiet node-gyp -g
 WORKDIR /jestersvault
 COPY package.json .
+COPY package-lock.json .
 RUN npm install --silent
 COPY . .
 CMD npm run development
