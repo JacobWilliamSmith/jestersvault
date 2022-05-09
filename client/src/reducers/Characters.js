@@ -3,8 +3,7 @@ import { v4 } from 'node-uuid';
 const defaultState = {
   characterList: [],
   activeCharacterId: null,
-  characterOrder: {orderBy: null, isAscending: null},
-  test: 1
+  characterOrder: {orderBy: null, isAscending: null}
 };
 
 const characterReducer = (state = defaultState, action) => {
@@ -98,6 +97,9 @@ const characterReducer = (state = defaultState, action) => {
 
     case 'END_ENCOUNTER':
       return { ...state, activeCharacterId: null };
+      
+    case 'CHECK_FOR_UPDATES':
+      return { ...defaultState, ...state };
 
     default:
       return state

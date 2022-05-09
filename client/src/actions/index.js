@@ -85,3 +85,9 @@ export const endEncounter = () => {
     type: 'END_ENCOUNTER'
   }
 }
+
+export const checkReducersForUpdates = () => {
+  return {
+    type: 'CHECK_FOR_UPDATES'
+  }
+}
