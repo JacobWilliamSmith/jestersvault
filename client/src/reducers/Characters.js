@@ -1,6 +1,11 @@
 import { v4 } from 'node-uuid';
 
-const defaultState = {characterList: [], activeCharacterId: null};
+const defaultState = {
+  characterList: [],
+  activeCharacterId: null,
+  characterOrder: {orderBy: null, isAscending: null},
+  test: 1
+};
 
 const characterReducer = (state = defaultState, action) => {
   let newCharacterList = [];
@@ -30,14 +35,22 @@ const characterReducer = (state = defaultState, action) => {
       return {...state, characterList: newCharacterList};
 
     case 'DRAG_AND_DROP_CHARACTER':
+      if(action.payload.sourceIndex === action.payload.destinationIndex) { return state; }
       newCharacterList = [...state.characterList];
       newCharacterList.splice(action.payload.sourceIndex, 1);
       newCharacterList.splice(action.payload.destinationIndex, 0, state.characterList[action.payload.sourceIndex]);
-      return {...state, characterList: newCharacterList};
+      return {...state,
+        characterList: newCharacterList,
+        characterOrder: {orderBy: null, isAscending: null}
+      };
 
     case 'DELETE_CHARACTER':
       if(state.characterList.length <= 1) {
-        return { ...state, characterList: [], activeCharacterId: null };
+        return {...state,
+          characterList: [],
+          activeCharacterId: null,
+          characterOrder: {orderBy: null, isAscending: null}
+        };
       }
 
       if(action.payload.id !== state.activeCharacterId) {
@@ -55,10 +68,17 @@ const characterReducer = (state = defaultState, action) => {
       };
 
     case 'DELETE_ALL_CHARACTERS':
-      return {...state, characterList: [], activeCharacterId: null}
+      return {...state,
+        characterList: [],
+        activeCharacterId: null,
+        characterOrder: {orderBy: null, isAscending: null}
+      };
 
     case 'SORT_CHARACTERS':
-      return {...state, characterList: [...state.characterList].sort((a,b) => compare(a[action.payload.orderBy], b[action.payload.orderBy], action.payload.isAscending))};
+      return {...state,
+        characterList: [...state.characterList].sort((a,b) => compare(a[action.payload.orderBy], b[action.payload.orderBy], action.payload.isAscending)),
+        characterOrder: {orderBy: action.payload.orderBy, isAscending: action.payload.isAscending}
+      };
 
     case 'START_ENCOUNTER':
       if(state.characterList.length === 0) { return { ...state, activeCharacterId: null }; }

@@ -27,15 +27,14 @@ import Message from './Message';
 import MenuTextfield from './MenuTextfield';
 
 export default function CharacterListHeader() {
-  const [orderArray, setOrderArray] = useState([0,0,0,0,0]);
   const dispatch = useDispatch();
-  const tableLayout = useSelector(state => state.tableLayout);
   const [presetMenuAnchor, setPresetMenuAnchor] = useState(null);
   const [isOverwritingPreset, setIsOverwritingPreset] = useState(null);
   const [message, setMessage] = useState(null);
-  const game = useSelector(state => state.characters.characterList);
-
   const [isSlideMenuOpen, setIsSlideMenuOpen] = useState(false);
+  const tableLayout = useSelector(state => state.tableLayout);
+  const game = useSelector(state => state.characters.characterList);
+  const characterOrder = useSelector(state => state.characters.characterOrder);
   const {isAuthenticated} = useContext(AuthContext);
   const {gamePresets, setGamePresets} = useContext(PresetContext);
 
@@ -75,11 +74,12 @@ export default function CharacterListHeader() {
     setIsOverwritingPreset(isOverwriting);
   }
 
-  function handleOrder(index) {
-    let newOrderArray = [0,0,0,0,0]
-    newOrderArray[index] = (orderArray[index] !== -1 ? -1 : 1);
-    setOrderArray(newOrderArray);
-    dispatch(sortCharacters(tableLayout[index].stat, newOrderArray[index] === 1));
+  function handleOrder(stat) {
+    if(characterOrder.orderBy !== stat || characterOrder.isAscending === null) {
+      dispatch(sortCharacters(stat, false));
+    } else {
+      dispatch(sortCharacters(stat, !characterOrder.isAscending));
+    }
   }
 
   function handleDeleteAllCharacters() {
@@ -122,10 +122,10 @@ export default function CharacterListHeader() {
           <h3 className="headerTitle">
             {tableLayout[index].name}
           </h3>
-          <IconButton size="small" onClick={ () => { handleOrder(index) }} >
-            { orderArray[index] ===  1 ? <OrderedAscendingIcon  fontSize="small"/>
-            : orderArray[index] === -1 ? <OrderedDescendingIcon fontSize="small"/>
-            :                            <UnorderedIcon         fontSize="small"/>
+          <IconButton size="small" onClick={ () => { handleOrder(tableLayout[index].stat) }} >
+            { 
+              characterOrder.orderBy !== tableLayout[index].stat ? <UnorderedIcon fontSize="small"/> :
+              characterOrder.isAscending ? <OrderedAscendingIcon fontSize="small"/> : <OrderedDescendingIcon fontSize="small"/>
             }
           </IconButton>
 
