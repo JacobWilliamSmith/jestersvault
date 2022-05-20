@@ -3,6 +3,7 @@ version: '3.7'
 services:
   client:
     image: react-app
+    restart: always
     build:
       context: ./client
       dockerfile: $DOCKERFILE_NAME
@@ -24,6 +25,7 @@ services:
 
   server:
     image: api-server
+    restart: always
     env_file: ./.env
     build:
       context: ./server
