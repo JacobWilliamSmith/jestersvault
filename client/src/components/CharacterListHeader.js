@@ -75,10 +75,10 @@ export default function CharacterListHeader() {
   }
 
   function handleOrder(stat) {
-    if(characterOrder.orderBy !== stat || characterOrder.isAscending === null) {
+    if(characterOrder?.orderBy !== stat || characterOrder?.isAscending === null) {
       dispatch(sortCharacters(stat, false));
     } else {
-      dispatch(sortCharacters(stat, !characterOrder.isAscending));
+      dispatch(sortCharacters(stat, !characterOrder?.isAscending));
     }
   }
 
@@ -124,8 +124,8 @@ export default function CharacterListHeader() {
           </h3>
           <IconButton size="small" onClick={ () => { handleOrder(tableLayout[index].stat) }} >
             { 
-              characterOrder.orderBy !== tableLayout[index].stat ? <UnorderedIcon fontSize="small"/> :
-              characterOrder.isAscending ? <OrderedAscendingIcon fontSize="small"/> : <OrderedDescendingIcon fontSize="small"/>
+              characterOrder?.orderBy !== tableLayout[index].stat ? <UnorderedIcon fontSize="small"/> :
+              characterOrder?.isAscending ? <OrderedAscendingIcon fontSize="small"/> : <OrderedDescendingIcon fontSize="small"/>
             }
           </IconButton>
 
