@@ -18,9 +18,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const userRouter = require('./routes/User');
 app.use('/user', userRouter);
 
-const debugRouter = require('./routes/Debug');
-app.use('/debug', debugRouter);
-
 app.listen(process.env.NODE_DOCKER_PORT, () => {
   console.log('Express server running');
 });
