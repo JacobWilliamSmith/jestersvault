@@ -3,9 +3,9 @@ import tableLayoutReducer from "./TableLayout";
 
 import { combineReducers } from "redux";
 
-const rootReducer = combineReducers ({
+const rootReducer = combineReducers({
   characters: characterReducer,
-  tableLayout: tableLayoutReducer
-})
+  tableLayout: tableLayoutReducer,
+});
 
-export default rootReducer
+export default rootReducer;

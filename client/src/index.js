@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './reducers';
-import RootProvider from './contexts';
-import throttle from 'lodash/throttle';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "./reducers";
+import RootProvider from "./contexts";
+import throttle from "lodash/throttle";
 
-import { loadState, saveState } from './localStorage';
+import { loadState, saveState } from "./localStorage";
 
 const persistedState = loadState();
 
@@ -18,11 +18,13 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-store.subscribe(throttle(() => {
-  saveState({
-    characters: store.getState().characters
-  });
-}, 1000));
+store.subscribe(
+  throttle(() => {
+    saveState({
+      characters: store.getState().characters,
+    });
+  }, 1000)
+);
 
 ReactDOM.render(
   <RootProvider>
@@ -32,5 +34,5 @@ ReactDOM.render(
       </React.StrictMode>
     </Provider>
   </RootProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

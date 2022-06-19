@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -10,74 +10,89 @@ const UserSchema = new mongoose.Schema(
       minLength: [4, "is too short (must be at least 4 characters)"],
       maxLength: [32, "is too long (must be at most 32 characters)"],
       required: [true, "can't be blank"],
-      match: [/^[a-zA-Z0-9]+$/, 'is invalid (must have only letters and numbers)'],
-      index: true
+      match: [/^[a-zA-Z0-9]+$/, "is invalid (must have only letters and numbers)"],
+      index: true,
     },
     email: {
       type: String,
       lowercase: true,
       unique: true,
       required: [true, "can't be blank"],
-      match: [/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'is invalid']
+      match: [
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "is invalid",
+      ],
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     emailIsVerified: {
       type: Boolean,
       required: true,
-      default: false
+      default: false,
     },
     characterPresets: {
-      type: [{
-        name: {
-          type: String,
-          required: true
+      type: [
+        {
+          name: {
+            type: String,
+            required: true,
+          },
+          characterData: {
+            type: Object,
+            required: true,
+            default: {},
+          },
         },
-        characterData: {
-          type: Object,
-          required: true,
-          default: {}
-        }
-      }],
+      ],
       required: true,
-      default: []
+      default: [],
     },
     gamePresets: {
-      type: [{
-        name: {
-          type: String,
-          required: true
-        },
+      type: [
+        {
+          name: {
+            type: String,
+            required: true,
+          },
           gameData: {
-          type: [Object],
-          required: true,
-          default: []
-        }
-      }],
+            type: [Object],
+            required: true,
+            default: [],
+          },
+        },
+      ],
       required: true,
-      default: []
-    }
+      default: [],
+    },
   },
   { timestamps: true }
-)
+);
 
-UserSchema.pre('save', function(next) {
-  if(!this.isModified('password')) { return next(); }
-  bcrypt.hash(this.password, 10, (err,passwordHash) => {
-    if(err) { return next(err); }
+UserSchema.pre("save", function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+  bcrypt.hash(this.password, 10, (err, passwordHash) => {
+    if (err) {
+      return next(err);
+    }
     this.password = passwordHash;
     next();
-  })
-})
+  });
+});
 
-UserSchema.methods.comparePassword = function(password, cb) {
-  bcrypt.compare(password, this.password, (err, isMatch)=>{
-    if(err) { return cb(err); }
-    if(!isMatch) { return cb(null, isMatch); }
+UserSchema.methods.comparePassword = function (password, cb) {
+  bcrypt.compare(password, this.password, (err, isMatch) => {
+    if (err) {
+      return cb(err);
+    }
+    if (!isMatch) {
+      return cb(null, isMatch);
+    }
     return cb(null, this);
   });
-}
+};
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model("User", UserSchema);

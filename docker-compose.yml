@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   client:
@@ -16,7 +16,7 @@ services:
       - ./client:/jestersvault
     environment:
       - CHOKIDAR_USEPOLLING=true
-    ports: 
+    ports:
       - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
     networks:
       - jestersvault

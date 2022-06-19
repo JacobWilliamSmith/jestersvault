@@ -11,7 +11,7 @@ import { red } from "@mui/material/colors";
 import { checkReducersForUpdates } from "../actions";
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkReducersForUpdates());
@@ -20,16 +20,16 @@ function App() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: red[900]
-      }
-    }
+        main: red[900],
+      },
+    },
   });
 
   return (
     <ThemeProvider theme={theme}>
       <TopAppBar />
       <CharacterList />
-      <BottomAppBar/>
+      <BottomAppBar />
     </ThemeProvider>
   );
 }

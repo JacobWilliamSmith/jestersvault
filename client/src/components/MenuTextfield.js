@@ -1,21 +1,20 @@
-import { useRef } from 'react';
+import { useRef } from "react";
 
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Menu from "@mui/material/Menu";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 
-import FinishIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
+import FinishIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 export default function ImageMenu(props) {
   const input = useRef(null);
 
   return (
-    <Menu anchorEl={props.anchor} open={Boolean(props.anchor)} onClose={props.onClose} >
-      <Stack direction="column" sx={{ml:1, mr:1, width: 270}} alignItems="flex-end" spacing={1} >
-
+    <Menu anchorEl={props.anchor} open={Boolean(props.anchor)} onClose={props.onClose}>
+      <Stack direction="column" sx={{ ml: 1, mr: 1, width: 270 }} alignItems="flex-end" spacing={1}>
         <TextField
           inputRef={input}
           placeholder={props.placeholder || ""}
@@ -28,11 +27,11 @@ export default function ImageMenu(props) {
           autoFocus
         />
 
-        <Stack sx={{width: '100%'}} direction="row" alignItems="flex-end" spacing={1}>
+        <Stack sx={{ width: "100%" }} direction="row" alignItems="flex-end" spacing={1}>
           <Grid container spacing={1}>
             <Grid item xs={6}>
               <Button
-                sx={{width: '100%'}}
+                sx={{ width: "100%" }}
                 onClick={props.onClose}
                 variant="contained"
                 color="error"
@@ -43,7 +42,7 @@ export default function ImageMenu(props) {
             </Grid>
             <Grid item xs={6}>
               <Button
-                sx={{width: '100%'}}
+                sx={{ width: "100%" }}
                 color={props.submitColor || "success"}
                 onClick={() => props.onSubmit(input.current.value)}
                 variant="contained"
@@ -53,7 +52,6 @@ export default function ImageMenu(props) {
               </Button>
             </Grid>
           </Grid>
-
         </Stack>
       </Stack>
     </Menu>
