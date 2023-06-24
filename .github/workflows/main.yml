@@ -18,7 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: stop webapp
-        run: docker-compose down
+        run: |
+          cp ../.env ./.env
+          docker-compose down
+          
 
       # Run gunicorn server
       - name: start webapp
