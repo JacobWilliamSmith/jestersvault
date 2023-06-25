@@ -17,7 +17,8 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     ports:
-      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
+      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT_1
+      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT_2
     networks:
       - jestersvault
     depends_on:
