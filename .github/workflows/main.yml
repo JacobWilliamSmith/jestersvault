@@ -23,6 +23,5 @@ jobs:
           docker-compose down
           
 
-      # Run gunicorn server
       - name: start webapp
         run: docker-compose up -d
