@@ -17,5 +17,6 @@ RUN npm run production
 # Stage 2: Deploy React App
 FROM nginx:1.17.0-alpine
 COPY --from=build-stage /jestersvault/build /usr/share/nginx/html
-EXPOSE $REACT_DOCKER_PORT
+EXPOSE $REACT_DOCKER_PORT_1
+EXPOSE $REACT_DOCKER_PORT_2
 CMD nginx -g 'daemon off;'
